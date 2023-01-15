@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".ui.camera.CameraFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <org.pytorch.demo.ListCardView
+
+                android:id="@+id/vision_card_DeiT_click_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/list_content_margin"
+                android:elevation="1dp"
+                app:descriptionRes="@string/vision_card_qmobilenet_description"
+                app:imageRes="@drawable/ic_image_classification_s"
+                app:titleRes="@string/DeiT_title">
+
+            </org.pytorch.demo.ListCardView>
+
+            <org.pytorch.demo.ListCardView
+
+                android:id="@+id/vision_card_qmobilenet_click_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/list_content_margin"
+                android:elevation="1dp"
+                app:descriptionRes="@string/vision_card_qmobilenet_description"
+                app:imageRes="@drawable/ic_image_classification_s"
+                app:titleRes="@string/vision_card_qmobilenet_title" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

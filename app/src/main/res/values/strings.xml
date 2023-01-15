@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">Plant Tracker Disease</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome_skip_button">Skip</string>
+    <string name="main_vision_button">Vision</string>
+    <string name="main_nlp_button">Language</string>
+
+    <string name="vision_list_image_classification_button">Image Classification</string>
+    <string name="image_classification_title">Nhận dạng bệnh trên cây</string>
+    <string name="image_classification_results_header_row_name">Tên bệnh</string>
+    <string name="image_classification_results_header_row_score">Độ chính xác</string>
+
+    <string name="text_classification">Text Classification</string>
+
+    <string name="welcome_page_title">Chào mừng bạn</string>
+    <string name="welcome_page_description">Ứng dụng nhận dạng bệnh trên cây trồng dựa trên PyTorch</string>
+
+    <string name="welcome_page_image_classification_title">Ngay lập tức</string>
+    <string name="welcome_page_image_classification_description">Trả kết quả ngay tức thì khi bạn quét</string>
+
+    <string name="welcome_page_nlp_title">Vision Transformer </string>
+    <string name="welcome_page_nlp_description">Vision Transformer for image classification</string>
+
+    <string name="vision_card_qmobilenet_title">Image Classification\nLeViT</string>
+    <string name="vision_card_qmobilenet_description">Inference in int8.\nInput is float32 tensor of 1x3x224x224 shape</string>
+
+    <string name="vision_card_resnet_title">Image Classification\nResnet18</string>
+    <string name="vision_card_resnet_description">Default TorchVision pretrained Resnet18 model. Input is float32 tensor of 1x3x224x224 shape</string>
+
+
+    <string name="DeiT_title">Image Classification \LeVit</string>
+    <string name="nlp_card_lstm_title">Text Classification.\nLSTM model trained on Reddit comments dataset. </string>
+    <string name="nlp_card_lstm_description">Predicts subreddit by given comment.\nInput is uint8 1xN shaped tensor, where N is the length of text\'s bytes representation in utf-8 encoding. Output classes are subreddits.</string>
+    <string name="clear">Clear</string>
+    <string name="text_classification_topic">Topic</string>
+    <string name="text_classification_score">Score</string>
+    <string name="error_dialog_text">Sorry there was an error.</string>
+    <string name="text_classification_edittext_hint">Something like a reddit comment...</string>
+    <string name="title_home">Trang chủ</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_search">Tìm kiếm</string>
+    <string name="title_profile">Cá nhân</string>
+    <string name="title_camera">Quét</string>
+    <string name="title_bookmark">Đã lưu</string>
+    <string name="search_diesease">Tìm các bệnh cho cây</string>
+    <string name="saved">Lịch Sử</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_detail_room">Detail_room</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_splash_screen">Splash_screen</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_history">Lịch Sử</string>
+    <string name="MyRoom">PHÒNG CỦA TÔI</string>
+
+</resources>
