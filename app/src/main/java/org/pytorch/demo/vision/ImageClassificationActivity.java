@@ -1,5 +1,6 @@
 package org.pytorch.demo.vision;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -7,7 +8,6 @@ import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewStub;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +22,8 @@ import org.pytorch.Tensor;
 import org.pytorch.demo.Constants;
 import org.pytorch.demo.R;
 import org.pytorch.demo.Utils;
+import org.pytorch.demo.ui.disease.UpdateDisease;
+import org.pytorch.demo.ui.plant.AddDisease;
 import org.pytorch.demo.vision.view.ResultRowView;
 import org.pytorch.torchvision.TensorImageUtils;
 
@@ -105,7 +107,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     mMsAvgText = findViewById(R.id.image_classification_ms_avg_text);
     mCaptureImage = findViewById(R.id.imageView12);
     mCaptureImage.setOnClickListener(v -> {
-
+        startActivity(new Intent(ImageClassificationActivity.this, UpdateDisease.class));
     });
   }
 
@@ -183,7 +185,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
           TensorImageUtils.TORCHVISION_NORM_MEAN_RGB,
           TensorImageUtils.TORCHVISION_NORM_STD_RGB,
           mInputTensorBuffer, 0);
-
+      Toast.makeText(this, image.getImage()+"result", Toast.LENGTH_SHORT).show();
       final long moduleForwardStartTime = SystemClock.elapsedRealtime();
       final Tensor outputTensor = mModule.forward(IValue.from(mInputTensor)).toTensor();
       final long moduleForwardDuration = SystemClock.elapsedRealtime() - moduleForwardStartTime;

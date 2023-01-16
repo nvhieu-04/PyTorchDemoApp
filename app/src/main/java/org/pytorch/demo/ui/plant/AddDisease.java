@@ -1,4 +1,4 @@
-package org.pytorch.demo.ui.disease;
+package org.pytorch.demo.ui.plant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,5 +12,6 @@ public class AddDisease extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_disease);
+
     }
 }
