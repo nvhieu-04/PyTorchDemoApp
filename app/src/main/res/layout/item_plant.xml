@@ -71,12 +71,12 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_DetailPlant"
+            android:id="@+id/btn_DeletePlant"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:layout_weight="1"
-            android:text="CHI TIẾT" />
+            android:text="Xóa" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

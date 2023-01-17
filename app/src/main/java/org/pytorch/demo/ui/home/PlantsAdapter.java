@@ -67,18 +67,18 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHold
         public View view;
         public TextView namePlant,nameRoom,healthyStatus,age;
         public ImageView imagePlant;
-        public Button btnDetail;
+        public Button btnDelete;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
             namePlant = itemView.findViewById(R.id.plantName);
             imagePlant = itemView.findViewById(R.id.imagePlant);
-            btnDetail = itemView.findViewById(R.id.btn_DetailPlant);
+            btnDelete = itemView.findViewById(R.id.btn_DeletePlant);
             nameRoom = itemView.findViewById(R.id.plantRoomName);
             healthyStatus = itemView.findViewById(R.id.plantStatus);
             age = itemView.findViewById(R.id.plantAge);
-            btnDetail.setOnClickListener(new View.OnClickListener() {
+            btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(view.getContext(),
