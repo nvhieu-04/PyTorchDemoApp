@@ -77,6 +77,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
   private long mMovingAvgSum = 0;
   private Queue<Long> mMovingAvgQueue = new LinkedList<>();
   private ImageView mCaptureImage;
+  protected String mDiseaseName;
 
   @Override
   protected int getContentViewLayoutId() {
@@ -107,7 +108,9 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     mMsAvgText = findViewById(R.id.image_classification_ms_avg_text);
     mCaptureImage = findViewById(R.id.imageView12);
     mCaptureImage.setOnClickListener(v -> {
-        startActivity(new Intent(ImageClassificationActivity.this, UpdateDisease.class));
+        Intent intent = new Intent(ImageClassificationActivity.this, UpdateDisease.class);
+        intent.putExtra("diseaseName", mDiseaseName);
+        startActivity(intent);
     });
   }
 
@@ -185,7 +188,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
           TensorImageUtils.TORCHVISION_NORM_MEAN_RGB,
           TensorImageUtils.TORCHVISION_NORM_STD_RGB,
           mInputTensorBuffer, 0);
-      Toast.makeText(this, image.getImage()+"result", Toast.LENGTH_SHORT).show();
+      //Toast.makeText(this, image.getImage()+"result", Toast.LENGTH_SHORT).show();
       final long moduleForwardStartTime = SystemClock.elapsedRealtime();
       final Tensor outputTensor = mModule.forward(IValue.from(mInputTensor)).toTensor();
       final long moduleForwardDuration = SystemClock.elapsedRealtime() - moduleForwardStartTime;
@@ -198,6 +201,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
       for (int i = 0; i < TOP_K; i++) {
         final int ix = ixs[i];
         topKClassNames[i] = Constants.IMAGENET_CLASSES[ix];
+        mDiseaseName = Constants.IMAGENET_CLASSES[ix];
         topKScores[i] = scores[ix];
       }
       final long analysisDuration = SystemClock.elapsedRealtime() - startTime;
