@@ -1,7 +1,10 @@
 package org.pytorch.demo.ui.room;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +24,11 @@ public class RoomDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_room);
+        //change color status bar
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.parseColor("#DEEAD8"));
         Intent i = getIntent();
         String name = i.getStringExtra("name");
         String count = i.getStringExtra("count");
@@ -35,8 +43,8 @@ public class RoomDetail extends AppCompatActivity {
         });
         addPlant.setOnClickListener(v -> {
             Intent intent = new Intent(RoomDetail.this, AddInformation.class);
-            intent.putExtra("name",name);
-            startActivityForResult(intent, 1);
+            intent.putExtra("nameRoom", name);
+            startActivity(intent);
         });
 
     }

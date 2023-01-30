@@ -1,9 +1,11 @@
 package org.pytorch.demo.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,7 @@ import org.pytorch.demo.R;
 import org.pytorch.demo.databinding.FragmentHomeBinding;
 import org.pytorch.demo.models.Plant;
 import org.pytorch.demo.models.Room;
+import org.pytorch.demo.ui.room.SeeAllRoom;
 
 import java.util.ArrayList;
 
@@ -25,10 +28,22 @@ public class HomeFragment extends Fragment {
     PlantsAdapter plantsAdapter;
     ArrayList<Room> rooms;
     ArrayList<Plant> plants;
+    TextView seeAllRoom,seeAllPlantNeedCare;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        seeAllRoom = binding.seeAllPlantInRoom;
+        seeAllPlantNeedCare = binding.seeAllPlantNeedCare;
+        //
+        seeAllRoom.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(getContext(), SeeAllRoom.class));
+                    }
+                }
+        );
         //
         roomList = binding.myRoom;
         rooms = new ArrayList<>();
