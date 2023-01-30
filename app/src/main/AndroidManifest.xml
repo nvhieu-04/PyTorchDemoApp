@@ -45,14 +45,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.disease.UpdateDisease"
-            android:exported="false" >
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ui.plant.AddDisease"
+            android:name=".ui.plant.AddInformation"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"

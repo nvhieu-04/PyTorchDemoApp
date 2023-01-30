@@ -1,6 +1,5 @@
 package org.pytorch.demo.ui.room;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -11,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.pytorch.demo.R;
-import org.pytorch.demo.ui.plant.AddDisease;
+import org.pytorch.demo.ui.plant.AddInformation;
 
 public class RoomDetail extends AppCompatActivity {
     TextView nameRoom, countPlant;
@@ -35,7 +34,7 @@ public class RoomDetail extends AppCompatActivity {
             onBackPressed();
         });
         addPlant.setOnClickListener(v -> {
-            Intent intent = new Intent(RoomDetail.this, AddDisease.class);
+            Intent intent = new Intent(RoomDetail.this, AddInformation.class);
             intent.putExtra("name",name);
             startActivityForResult(intent, 1);
         });

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
@@ -22,8 +21,7 @@ import org.pytorch.Tensor;
 import org.pytorch.demo.Constants;
 import org.pytorch.demo.R;
 import org.pytorch.demo.Utils;
-import org.pytorch.demo.ui.disease.UpdateDisease;
-import org.pytorch.demo.ui.plant.AddDisease;
+import org.pytorch.demo.ui.plant.AddInformation;
 import org.pytorch.demo.vision.view.ResultRowView;
 import org.pytorch.torchvision.TensorImageUtils;
 
@@ -108,7 +106,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     mMsAvgText = findViewById(R.id.image_classification_ms_avg_text);
     mCaptureImage = findViewById(R.id.imageView12);
     mCaptureImage.setOnClickListener(v -> {
-        Intent intent = new Intent(ImageClassificationActivity.this, UpdateDisease.class);
+        Intent intent = new Intent(ImageClassificationActivity.this, AddInformation.class);
         intent.putExtra("diseaseName", mDiseaseName);
         startActivity(intent);
     });
