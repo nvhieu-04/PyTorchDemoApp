@@ -100,15 +100,17 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     mResultRowViews[0] = findViewById(R.id.image_classification_top1_result_row);
 //    mResultRowViews[1] = findViewById(R.id.image_classification_top2_result_row);
 //    mResultRowViews[2] = findViewById(R.id.image_classification_top3_result_row);
-
+    Intent intent = getIntent();
+    String nameRoom = intent.getStringExtra("nameRoom");
     mFpsText = findViewById(R.id.image_classification_fps_text);
     mMsText = findViewById(R.id.image_classification_ms_text);
     mMsAvgText = findViewById(R.id.image_classification_ms_avg_text);
     mCaptureImage = findViewById(R.id.imageView12);
     mCaptureImage.setOnClickListener(v -> {
-        Intent intent = new Intent(ImageClassificationActivity.this, AddInformation.class);
-        intent.putExtra("diseaseName", mDiseaseName);
-        startActivity(intent);
+        Intent intent1 = new Intent(ImageClassificationActivity.this, AddInformation.class);
+        intent1.putExtra("diseaseName", mDiseaseName);
+        intent1.putExtra("nameRoom", nameRoom);
+        startActivity(intent1);
     });
   }
 

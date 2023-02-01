@@ -22,10 +22,14 @@
     <color name="chip_orange_ripple">#6DC8FF00</color>
     <color name="colorYellow">#EFE86F</color>
     <color name="colorGreen">#2FC24D</color>
-    <color name="colorRed">#F98121</color>
+    <color name="colorRed">#E53935</color>
     <color name="colorGreenBG">#0D986A</color>
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+    <!-- Here you can add color of your choice  -->
+    <color name="ucrop_color_toolbar">@color/colorPrimaryDark</color>
+    <color name="ucrop_color_statusbar">@color/colorPrimary</color>
+    <color name="ucrop_color_widget_active">@color/colorAccent</color>
 </resources>

@@ -5,14 +5,12 @@ public class Room {
     private int id;
     private int image;
     private String totalPlant;
-    private String description;
 
-    public Room(String name, int id, int image, String totalPlant, String description) {
+    public Room(String name, int id, int image, String totalPlant) {
         this.name = name;
         this.id = id;
         this.image = image;
         this.totalPlant = totalPlant;
-        this.description = description;
     }
 
     public String getName() {
@@ -47,11 +45,5 @@ public class Room {
         this.totalPlant = totalPlant;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

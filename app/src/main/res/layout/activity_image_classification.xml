@@ -98,16 +98,14 @@
 
     <ImageView
         android:id="@+id/imageView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="24dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/white"
         android:padding="24dp"
-        app:circularflow_defaultRadius="8dp"
-        app:circularflow_radiusInDP="8dp"
         app:layout_constraintBottom_toTopOf="@+id/image_classification_top1_result_row"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        app:srcCompat="@drawable/ios11_camera_mode_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

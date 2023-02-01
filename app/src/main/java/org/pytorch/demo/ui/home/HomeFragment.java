@@ -47,10 +47,10 @@ public class HomeFragment extends Fragment {
         //
         roomList = binding.myRoom;
         rooms = new ArrayList<>();
-        rooms.add(new Room("Living Room", 1, R.drawable.living_room, "3 cây trồng", "This is a living room"));
-        rooms.add(new Room("Bedroom", 2, R.drawable.living_room, "2 cây trồng", "This is a bedroom"));
-        rooms.add(new Room("Kitchen", 3, R.drawable.living_room, "1 cây trồng", "This is a kitchen"));
-        rooms.add(new Room("Bathroom", 4, R.drawable.living_room, "1 cây trồng", "This is a bathroom"));
+        rooms.add(new Room("Living Room", 1, R.drawable.living_room, "3 cây trồng"));
+        rooms.add(new Room("Bedroom", 2, R.drawable.living_room, "2 cây trồng"));
+        rooms.add(new Room("Kitchen", 3, R.drawable.living_room, "1 cây trồng"));
+        rooms.add(new Room("Bathroom", 4, R.drawable.living_room, "1 cây trồng"));
         myRoomAdapter = new MyRoomAdapter(rooms, this.getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
         roomList.setLayoutManager(linearLayoutManager);
