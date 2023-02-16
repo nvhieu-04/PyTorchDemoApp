@@ -91,7 +91,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/textViewRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -102,7 +102,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/textViewForgetPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -114,7 +114,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/buttonLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

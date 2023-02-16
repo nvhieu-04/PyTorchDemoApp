@@ -38,15 +38,14 @@ public class MyRoomAdapter extends RecyclerView.Adapter<MyRoomAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
             Room room = roomList.get(position);
-            holder.countPlant.setText(room.getTotalPlant());
-            holder.nameRoom.setText(room.getName());
-            holder.imageRoom.setImageResource(room.getImage());
+            holder.nameRoom.setText(room.getNameRoom());
+            //holder.imageRoom.setImageResource(room.getImage());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, RoomDetail.class);
-                    intent.putExtra("name",room.getName());
-                    intent.putExtra("count",room.getTotalPlant());
+                    intent.putExtra("name",room.getNameRoom());
+                    //intent.putExtra("count",room.getTotalPlant());
                     context.startActivity(intent);
                 }}
             );

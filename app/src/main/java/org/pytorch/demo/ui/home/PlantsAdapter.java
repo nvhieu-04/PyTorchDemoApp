@@ -1,7 +1,10 @@
 package org.pytorch.demo.ui.home;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.pytorch.demo.R;
 import org.pytorch.demo.models.Plant;
+import org.pytorch.demo.models.PlantResponse;
+import org.pytorch.demo.ui.login.ApiClient;
 import org.pytorch.demo.ui.plant.PlantDetail;
 
 import java.util.List;
+
+import retrofit2.Call;
 
 public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHolder> {
     List<Plant> plantList;
@@ -39,20 +46,20 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull PlantsAdapter.MyViewHolder holder, int position) {
         Plant plant = plantList.get(position);
-        holder.namePlant.setText(plant.getName());
-        holder.imagePlant.setImageResource(plant.getImage());
-        holder.nameRoom.setText(plant.getRoomName());
+        holder.namePlant.setText(plant.getNamePlant());
+        //holder.imagePlant.setImageResource(plant.getImage());
+        holder.nameRoom.setText(plant.getNameRoom());
         holder.healthyStatus.setText("Sức khỏe: "+plant.getHealthStatus());
-        holder.age.setText("Tuổi: "+plant.getAge()+" ngày");
+        holder.age.setText("Ngày tạo: "+plant.getCreatedAt().substring(0,10)+" ngày");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PlantDetail.class);
-                intent.putExtra("name",plant.getName());
-                intent.putExtra("room",plant.getRoomName());
-                intent.putExtra("age","Tuổi: "+plant.getAge()+" ngày");
+                intent.putExtra("name",plant.getNamePlant());
+                intent.putExtra("room",plant.getNameRoom());
+                intent.putExtra("age","Tuổi: "+plant.getCreatedAt()+" ngày");
                 intent.putExtra("health","Sức khỏe: "+plant.getHealthStatus());
-                intent.putExtra("image",plant.getImage());
+                //intent.putExtra("image",plant.getImage());
                 context.startActivity(intent);
             }
         });
@@ -78,13 +85,56 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHold
             nameRoom = itemView.findViewById(R.id.plantRoomName);
             healthyStatus = itemView.findViewById(R.id.plantStatus);
             age = itemView.findViewById(R.id.plantAge);
+            //
+            SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("myKey", Context.MODE_PRIVATE);
+            String token = sharedPreferences.getString("TOKEN", null);
+            //
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(view.getContext(),
-                                    namePlant.getText() +" | "
-                                            + " Demo function", Toast.LENGTH_SHORT)
-                            .show();
+                    //Show pop up
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+                    builder.setTitle("Xoá bỏ cây này");
+                    builder.setMessage("Bạn muốn xoá chứ?");
+
+                    builder.setPositiveButton("XOÁ", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Do nothing but close the dialog
+                            Call<PlantResponse> call = ApiClient.getUserService().deletePlant(token,plantList.get(getAdapterPosition()).get_id());
+                            call.enqueue(new retrofit2.Callback<PlantResponse>() {
+                                @Override
+                                public void onResponse(Call<PlantResponse> call, retrofit2.Response<PlantResponse> response) {
+                                    if(response.isSuccessful()){
+                                        Toast.makeText(view.getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                                        plantList.remove(getAdapterPosition());
+                                        notifyDataSetChanged();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<PlantResponse> call, Throwable t) {
+                                    Toast.makeText(view.getContext(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+
+                            dialog.dismiss();
+                        }
+                    });
+
+                    builder.setNegativeButton("QUAY LẠI", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Do nothing
+                            dialog.dismiss();
+                        }
+                    });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             });
         }

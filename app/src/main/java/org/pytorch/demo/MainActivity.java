@@ -1,10 +1,13 @@
 package org.pytorch.demo;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,10 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.pytorch.demo.databinding.ActivityMainBinding;
+import org.pytorch.demo.models.UserInfo;
+import org.pytorch.demo.ui.login.ApiClient;
+
+import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +48,43 @@ public class MainActivity extends AppCompatActivity {
     NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
     //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
     NavigationUI.setupWithNavController(binding.navView, navController);
-  }
+    //get API store data user information in shared preferences
+    SharedPreferences prefs = getSharedPreferences("myKey", Context.MODE_PRIVATE);
+    String token = prefs.getString("TOKEN", null);
+    if(token != null)
+    {
+      getInfoUser();
 
+    }
+
+  }
+  private void getInfoUser()
+  {
+    SharedPreferences prefs = getSharedPreferences("myKey", Context.MODE_PRIVATE);
+    String token = prefs.getString("TOKEN", null);
+    Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
+    Call<UserInfo> call = ApiClient.getUserService().me(token);
+    call.enqueue(new retrofit2.Callback<UserInfo>() {
+      @Override
+      public void onResponse(Call<UserInfo> call, retrofit2.Response<UserInfo> response) {
+        if (response.isSuccessful()) {
+          UserInfo userInfo = response.body();
+          SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+          SharedPreferences.Editor editor = sharedPreferences.edit();
+          assert userInfo != null;
+          editor.putString("name", userInfo.getUsername());
+          editor.putString("email", userInfo.getEmail());
+          editor.putString("id", userInfo.get_id());
+          editor.putString("createAt", userInfo.getCreatedAt());
+          editor.apply();
+        }
+
+      }
+
+      @Override
+      public void onFailure(Call<UserInfo> call, Throwable t) {
+        Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+      }
+    });
+  }
 }

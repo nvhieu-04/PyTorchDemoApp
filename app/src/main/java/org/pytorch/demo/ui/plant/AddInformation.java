@@ -4,7 +4,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,8 +20,15 @@ import android.widget.Toast;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import org.pytorch.demo.InfoViewFactory;
+import org.pytorch.demo.MainActivity;
 import org.pytorch.demo.R;
+import org.pytorch.demo.models.Plant;
+import org.pytorch.demo.models.PlantRequest;
+import org.pytorch.demo.models.PlantResponse;
+import org.pytorch.demo.ui.login.ApiClient;
 import org.pytorch.demo.vision.ImageClassificationActivity;
+
+import retrofit2.Call;
 
 public class AddInformation extends AppCompatActivity {
     ImageView back,notification, imagePlant;
@@ -49,6 +58,11 @@ public class AddInformation extends AppCompatActivity {
             onBackPressed();
         });
         //
+        SharedPreferences sharedPreferences = getSharedPreferences("myKey", MODE_PRIVATE);
+        String token = sharedPreferences.getString("TOKEN", "");
+        SharedPreferences sharedPreferences1 = getSharedPreferences("user", Context.MODE_PRIVATE);
+        String id = sharedPreferences1.getString("id", null);
+        //
         Intent intent = getIntent();
         String nameDisease = intent.getStringExtra("diseaseName");
         String nameRoom = intent.getStringExtra("nameRoom");
@@ -75,8 +89,36 @@ public class AddInformation extends AppCompatActivity {
             startActivity(intent1);
         });
         addPlant.setOnClickListener(v -> {
-            Toast.makeText(this, "Thêm thành công", Toast.LENGTH_SHORT).show();
-            onBackPressed();
+            String name = namePlant.getText().toString();
+            String nameofRoom = nameRoomPlant.getText().toString();
+            String status = statusPlant.getText().toString();
+            if (name.equals("") || nameofRoom.equals("") || status.equals(""))
+            {
+                Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Call<PlantResponse> call = ApiClient.getUserService().createPlant(token, new PlantRequest(name, nameofRoom, status, id));
+            call.enqueue(new retrofit2.Callback<PlantResponse>() {
+                @Override
+                public void onResponse(Call<PlantResponse> call, retrofit2.Response<PlantResponse> response) {
+                    if (response.isSuccessful()) {
+                        PlantResponse plantResponse = response.body();
+                        if (plantResponse != null) {
+                            if (plantResponse.getMessage().equals("Plant created")) {
+                                Toast.makeText(AddInformation.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(AddInformation.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<PlantResponse> call, Throwable t) {
+                    Toast.makeText(AddInformation.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         });
         updatePlant.setOnClickListener(v -> {
             Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();

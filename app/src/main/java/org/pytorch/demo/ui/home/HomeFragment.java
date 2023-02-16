@@ -1,6 +1,8 @@
 package org.pytorch.demo.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +18,13 @@ import org.pytorch.demo.R;
 import org.pytorch.demo.databinding.FragmentHomeBinding;
 import org.pytorch.demo.models.Plant;
 import org.pytorch.demo.models.Room;
+import org.pytorch.demo.ui.login.ApiClient;
 import org.pytorch.demo.ui.room.SeeAllRoom;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
 
 public class HomeFragment extends Fragment {
 
@@ -36,6 +42,10 @@ public class HomeFragment extends Fragment {
         seeAllRoom = binding.seeAllPlantInRoom;
         seeAllPlantNeedCare = binding.seeAllPlantNeedCare;
         //
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("myKey", Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("TOKEN", null);
+        SharedPreferences sharedPreferences1 = this.getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        String id = sharedPreferences1.getString("id", null);
         seeAllRoom.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -47,10 +57,29 @@ public class HomeFragment extends Fragment {
         //
         roomList = binding.myRoom;
         rooms = new ArrayList<>();
-        rooms.add(new Room("Living Room", 1, R.drawable.living_room, "3 cây trồng"));
-        rooms.add(new Room("Bedroom", 2, R.drawable.living_room, "2 cây trồng"));
-        rooms.add(new Room("Kitchen", 3, R.drawable.living_room, "1 cây trồng"));
-        rooms.add(new Room("Bathroom", 4, R.drawable.living_room, "1 cây trồng"));
+        //
+        Call<List<Room>> call = ApiClient.getUserService().getRoom(token);
+        call.enqueue(new retrofit2.Callback<List<Room>>() {
+            @Override
+            public void onResponse(Call<List<Room>> call, retrofit2.Response<List<Room>> response) {
+                if (response.isSuccessful()) {
+                    List<Room> roomList = response.body();
+                    for (Room room : roomList) {
+                        if(room.getIdUser().equals(id))
+                        {
+                            rooms.add(room);
+                        }
+                    }
+                    myRoomAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Room>> call, Throwable t) {
+
+            }
+        });
+        //
         myRoomAdapter = new MyRoomAdapter(rooms, this.getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
         roomList.setLayoutManager(linearLayoutManager);
@@ -58,11 +87,30 @@ public class HomeFragment extends Fragment {
         //
         plantNeedCareList = binding.needCare;
         plants = new ArrayList<>();
-        plants.add(new Plant("Cây cảnh 1",1,R.drawable.living_room,"This is a plant",1,"Living Room","Tốt","1 giờ trước",3,"Không"));
-        plants.add(new Plant("Cây cảnh 2",2,R.drawable.living_room,"This is a plant",1,"Living Room","Tốt","1 giờ trước",3,"Không"));
-        plants.add(new Plant("Cây cảnh 3",3,R.drawable.living_room,"This is a plant",1,"Living Room","Tốt","1 giờ trước",3,"Không"));
-        plants.add(new Plant("Cây cảnh 4",4,R.drawable.living_room,"This is a plant",1,"Living Room","Tốt","1 giờ trước",3,"Không"));
-        plants.add(new Plant("Cây cảnh 5",5,R.drawable.living_room,"This is a plant",1,"Living Room","Tốt","1 giờ trước",3,"Không"));
+        //
+        Call<List<Plant>> call1 = ApiClient.getUserService().getPlant(token);
+        call1.enqueue(new retrofit2.Callback<List<Plant>>() {
+            @Override
+            public void onResponse(Call<List<Plant>> call, retrofit2.Response<List<Plant>> response) {
+                if (response.isSuccessful()) {
+                    List<Plant> plantList = response.body();
+                    for (Plant plant : plantList) {
+                        if(plant.getUserID().equals(id))
+                        {
+                            plants.add(plant);
+
+                        }
+                    }
+                    plantsAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Plant>> call, Throwable t) {
+
+            }
+        });
+        //
         plantsAdapter = new PlantsAdapter(plants, this.getContext());
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         plantNeedCareList.setLayoutManager(linearLayoutManager1);

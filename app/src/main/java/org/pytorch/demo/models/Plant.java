@@ -1,76 +1,58 @@
 package org.pytorch.demo.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Plant {
-    private String name;
-    private int idPlant;
-    private int image;
-    private String description;
-    private int roomID;
-    private String roomName;
+    @SerializedName("_id")
+    private String _id;
+    @SerializedName("namePlant")
+    private String namePlant;
+    @SerializedName("nameRoom")
+    private String nameRoom;
+    @SerializedName("healthStatus")
     private String healthStatus;
-    private String lastWatered;
-    private int age;
-    private String needCare;
+    @SerializedName("userID")
+    private String userID;
+    @SerializedName("createdAt")
+    private String createdAt;
+    @SerializedName("id")
+    private String id;
+    @SerializedName("__v")
+    private String __v;
 
-    public Plant(String name, int idPlant, int image, String description, int roomID, String roomName, String healthStatus, String lastWatered, int age, String needCare) {
-        this.name = name;
-        this.idPlant = idPlant;
-        this.image = image;
-        this.description = description;
-        this.roomID = roomID;
-        this.roomName = roomName;
+    public Plant(String _id, String namePlant, String nameRoom, String healthStatus, String userID, String createdAt, String id, String __v) {
+        this._id = _id;
+        this.namePlant = namePlant;
+        this.nameRoom = nameRoom;
         this.healthStatus = healthStatus;
-        this.lastWatered = lastWatered;
-        this.age = age;
-        this.needCare = needCare;
+        this.userID = userID;
+        this.createdAt = createdAt;
+        this.id = id;
+        this.__v = __v;
     }
 
-    public String getName() {
-        return name;
+    public String get_id() {
+        return _id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public int getIdPlant() {
-        return idPlant;
+    public String getNamePlant() {
+        return namePlant;
     }
 
-    public void setIdPlant(int idPlant) {
-        this.idPlant = idPlant;
+    public void setNamePlant(String namePlant) {
+        this.namePlant = namePlant;
     }
 
-    public int getImage() {
-        return image;
+    public String getNameRoom() {
+        return nameRoom;
     }
 
-    public void setImage(int image) {
-        this.image = image;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getRoomID() {
-        return roomID;
-    }
-
-    public void setRoomID(int roomID) {
-        this.roomID = roomID;
-    }
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public void setNameRoom(String nameRoom) {
+        this.nameRoom = nameRoom;
     }
 
     public String getHealthStatus() {
@@ -81,27 +63,35 @@ public class Plant {
         this.healthStatus = healthStatus;
     }
 
-    public String getLastWatered() {
-        return lastWatered;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setLastWatered(String lastWatered) {
-        this.lastWatered = lastWatered;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
-    public int getAge() {
-        return age;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getNeedCare() {
-        return needCare;
+    public String getId() {
+        return id;
     }
 
-    public void setNeedCare(String needCare) {
-        this.needCare = needCare;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String get__v() {
+        return __v;
+    }
+
+    public void set__v(String __v) {
+        this.__v = __v;
     }
 }

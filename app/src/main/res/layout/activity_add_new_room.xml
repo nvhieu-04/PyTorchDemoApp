@@ -65,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView_avatarRoom" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editTextTextAddNameRoom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -78,12 +78,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonAddNewRoom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="THÊM"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextAddNameRoom"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextAddNameRoom"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextAddNameRoom" />
 </androidx.constraintlayout.widget.ConstraintLayout>

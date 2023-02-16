@@ -60,7 +60,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:id="@+id/editTextTextUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -77,7 +77,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress2"
+            android:id="@+id/editTextTextEmailAddressRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -95,7 +95,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editTextTextPassword3"
+            android:id="@+id/editTextTextPasswordRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -113,7 +113,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editTextTextPassword4"
+            android:id="@+id/editTextTextPasswordAgainRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -133,7 +133,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView26"
+            android:id="@+id/textViewtoLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -143,7 +143,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/buttonRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
