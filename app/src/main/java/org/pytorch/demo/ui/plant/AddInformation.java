@@ -66,7 +66,43 @@ public class AddInformation extends AppCompatActivity {
         Intent intent = getIntent();
         String nameDisease = intent.getStringExtra("diseaseName");
         String nameRoom = intent.getStringExtra("nameRoom");
+        String idPlant = intent.getStringExtra("idPlant");
+        String namePlant1 = intent.getStringExtra("namePlant");
+        Boolean isUpdate = intent.getBooleanExtra("edit", false);
+        if (isUpdate)
+        {
+            addPlant.setVisibility(Button.INVISIBLE);
+            namePlant.setText(namePlant1);
+            nameRoomPlant.setText(nameRoom);
+            statusPlant.setText(nameDisease);
+            updatePlant.setVisibility(Button.VISIBLE);
+            updatePlant.setOnClickListener(v -> {
+                Call<PlantResponse> call = ApiClient.getUserService().updatePlant(token,idPlant,new PlantRequest(namePlant.getText().toString(), nameRoomPlant.getText().toString(), statusPlant.getText().toString(), id));
+                call.enqueue(new retrofit2.Callback<PlantResponse>() {
+                    @Override
+                    public void onResponse(Call<PlantResponse> call, retrofit2.Response<PlantResponse> response) {
+                        if (response.isSuccessful()) {
+                            PlantResponse plantResponse = response.body();
+                            if (plantResponse != null) {
+                                if (plantResponse.getMessage().equals("Update plant")) {
+                                    Toast.makeText(AddInformation.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                                    onBackPressed();
+                                }
+                            }
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<PlantResponse> call, Throwable t) {
+                        Toast.makeText(AddInformation.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
+        }
+        else {
+            addPlant.setVisibility(Button.VISIBLE);
+            updatePlant.setVisibility(Button.INVISIBLE);
+        }
         if (nameRoom != null)
         {
             nameRoomPlant.setText(nameRoom);
@@ -119,10 +155,6 @@ public class AddInformation extends AppCompatActivity {
                 }
             });
 
-        });
-        updatePlant.setOnClickListener(v -> {
-            Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-            onBackPressed();
         });
         imagePlant.setOnClickListener(v -> {
             ImagePicker.with(this)

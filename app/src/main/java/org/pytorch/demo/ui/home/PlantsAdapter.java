@@ -57,8 +57,9 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHold
                 Intent intent = new Intent(context, PlantDetail.class);
                 intent.putExtra("name",plant.getNamePlant());
                 intent.putExtra("room",plant.getNameRoom());
-                intent.putExtra("age","Tuổi: "+plant.getCreatedAt()+" ngày");
-                intent.putExtra("health","Sức khỏe: "+plant.getHealthStatus());
+                intent.putExtra("age",plant.getCreatedAt());
+                intent.putExtra("health",plant.getHealthStatus());
+                intent.putExtra("id",plant.get_id());
                 //intent.putExtra("image",plant.getImage());
                 context.startActivity(intent);
             }
