@@ -5,12 +5,14 @@ public class PlantRequest {
     private String nameRoom;
     private String healthStatus;
     private String userID;
+    private String imagePlant;
 
-    public PlantRequest(String namePlant, String nameRoom, String healthStatus, String userID) {
+    public PlantRequest(String namePlant, String nameRoom, String healthStatus, String userID, String imagePlant) {
         this.namePlant = namePlant;
         this.nameRoom = nameRoom;
         this.healthStatus = healthStatus;
         this.userID = userID;
+        this.imagePlant = imagePlant;
     }
 
     public String getNamePlant() {
@@ -43,5 +45,13 @@ public class PlantRequest {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public String getImg() {
+        return imagePlant;
+    }
+
+    public void setImg(String imagePlant) {
+        this.imagePlant = imagePlant;
     }
 }

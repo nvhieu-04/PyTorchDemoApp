@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+
 import org.pytorch.demo.MainActivity;
 import org.pytorch.demo.R;
 import org.pytorch.demo.models.PlantResponse;
@@ -24,6 +26,7 @@ import org.pytorch.demo.ui.login.ApiClient;
 import retrofit2.Call;
 
 public class PlantDetail extends AppCompatActivity {
+    private static final String API_URL = "http://10.0.22.16:3000/";
     ImageView imagePlant, back;
     TextView namePlant, nameRoom, age, healthyStatus;
     Button btnEdit, btnDelete;
@@ -54,12 +57,17 @@ public class PlantDetail extends AppCompatActivity {
         String agePlant = i.getStringExtra("age");
         String status = i.getStringExtra("health");
         String idPlant = i.getStringExtra("id");
-        int image = i.getIntExtra("image", 0);
+        String image = i.getStringExtra("image");
         namePlant.setText(name);
         nameRoom.setText(room);
         age.setText(agePlant);
         healthyStatus.setText(status);
-        imagePlant.setImageResource(image);
+        Glide
+                .with(this)
+                .load(API_URL+image)
+                .centerCrop()
+                .placeholder(R.drawable.bg_error_dialog)
+                .into(imagePlant);
 
         back.setOnClickListener(
                 v -> {

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,9 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.pytorch.demo.MainActivity;
 import org.pytorch.demo.R;
+import org.pytorch.demo.models.ImageResultResponse;
 import org.pytorch.demo.models.PlantRequest;
 import org.pytorch.demo.models.PlantResponse;
 import org.pytorch.demo.models.Room;
@@ -27,11 +32,20 @@ import org.pytorch.demo.ui.login.ApiClient;
 import org.pytorch.demo.ui.plant.AddInformation;
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.sql.Time;
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 public class AddNewRoom extends AppCompatActivity {
     ImageView back, notification, imageRoom;
-    String path;
     Uri uri;
     EditText nameRoom;
     Button addRoom;
@@ -62,8 +76,32 @@ public class AddNewRoom extends AppCompatActivity {
             if (name.isEmpty()) {
                 Toast.makeText(this, "Please enter name room", Toast.LENGTH_SHORT).show();
             } else {
+                File file = new File(uri.getPath());
+                String nameFile = name + id + ".jpg";
+                // create RequestBody instance from file
+                RequestBody requestFile =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                // MultipartBody.Part is used to send also the actual file name
+                MultipartBody.Part body =
+                        MultipartBody.Part.createFormData("image", nameFile , requestFile);
+                Call<ImageResultResponse> call1 = ApiClient.getUserService().uploadImage(body);
+
+                call1.enqueue(new retrofit2.Callback<ImageResultResponse>() {
+                    @Override
+                    public void onResponse(Call<ImageResultResponse> call, retrofit2.Response<ImageResultResponse> responseq) {
+                        if (responseq.isSuccessful()) {
+                            ImageResultResponse imageResultResponse = responseq.body();
+
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ImageResultResponse> call, Throwable t) {
+                        Toast.makeText(AddNewRoom.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 //add new room
-                Call<RoomResponse> call = ApiClient.getUserService().createRoom(token,new RoomRequest(name,id));
+
+                Call<RoomResponse> call = ApiClient.getUserService().createRoom(token, new RoomRequest(name, id, nameFile));
                 call.enqueue(new retrofit2.Callback<RoomResponse>() {
                     @Override
                     public void onResponse(Call<RoomResponse> call, retrofit2.Response<RoomResponse> response) {
@@ -71,14 +109,13 @@ public class AddNewRoom extends AppCompatActivity {
                             RoomResponse roomResponse = response.body();
                             if (roomResponse != null) {
                                 if (roomResponse.getMsg().equals("Room created")) {
-                                    Toast.makeText(AddNewRoom.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddNewRoom.this, roomResponse.getMsg(), Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(AddNewRoom.this, MainActivity.class);
                                     startActivity(intent);
                                 }
                             }
                         }
                     }
-
                     @Override
                     public void onFailure(Call<RoomResponse> call, Throwable t) {
                         Toast.makeText(AddNewRoom.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();

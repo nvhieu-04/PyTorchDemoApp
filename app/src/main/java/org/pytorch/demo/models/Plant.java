@@ -19,8 +19,10 @@ public class Plant {
     private String id;
     @SerializedName("__v")
     private String __v;
+    @SerializedName("imagePlant")
+    private String imagePlant;
 
-    public Plant(String _id, String namePlant, String nameRoom, String healthStatus, String userID, String createdAt, String id, String __v) {
+    public Plant(String _id, String namePlant, String nameRoom, String healthStatus, String userID, String createdAt, String id, String __v, String imagePlant) {
         this._id = _id;
         this.namePlant = namePlant;
         this.nameRoom = nameRoom;
@@ -29,6 +31,7 @@ public class Plant {
         this.createdAt = createdAt;
         this.id = id;
         this.__v = __v;
+        this.imagePlant = imagePlant;
     }
 
     public String get_id() {
@@ -93,5 +96,13 @@ public class Plant {
 
     public void set__v(String __v) {
         this.__v = __v;
+    }
+
+    public String getImagePlant() {
+        return imagePlant;
+    }
+
+    public void setImagePlant(String imagePlant) {
+        this.imagePlant = imagePlant;
     }
 }

@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.pytorch.demo.R;
 import org.pytorch.demo.models.Plant;
 import org.pytorch.demo.models.PlantResponse;
@@ -29,6 +31,8 @@ import retrofit2.Call;
 public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHolder> {
     List<Plant> plantList;
     Context context;
+    private static final String API_URL = "http://10.0.22.16:3000/";
+
     public PlantsAdapter(List<Plant> plantList, Context context) {
         this.plantList = plantList;
         this.context = context;
@@ -47,7 +51,12 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHold
     public void onBindViewHolder(@NonNull PlantsAdapter.MyViewHolder holder, int position) {
         Plant plant = plantList.get(position);
         holder.namePlant.setText(plant.getNamePlant());
-        //holder.imagePlant.setImageResource(plant.getImage());
+        Glide
+                .with(context)
+                .load(API_URL+plant.getImagePlant())
+                .centerCrop()
+                .placeholder(R.drawable.bg_error_dialog)
+                .into(holder.imagePlant);
         holder.nameRoom.setText(plant.getNameRoom());
         holder.healthyStatus.setText("Sức khỏe: "+plant.getHealthStatus());
         holder.age.setText("Ngày tạo: "+plant.getCreatedAt().substring(0,10)+" ngày");
@@ -60,6 +69,7 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHold
                 intent.putExtra("age",plant.getCreatedAt());
                 intent.putExtra("health",plant.getHealthStatus());
                 intent.putExtra("id",plant.get_id());
+                intent.putExtra("image",plant.getImagePlant());
                 //intent.putExtra("image",plant.getImage());
                 context.startActivity(intent);
             }

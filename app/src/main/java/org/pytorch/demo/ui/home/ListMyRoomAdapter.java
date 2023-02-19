@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.pytorch.demo.R;
 import org.pytorch.demo.models.PlantResponse;
 import org.pytorch.demo.models.Room;
@@ -33,7 +35,7 @@ import retrofit2.Call;
 public class ListMyRoomAdapter extends RecyclerView.Adapter<ListMyRoomAdapter.MyViewHolder>{
     List<Room> roomList;
     Context context;
-
+    private static final String API_URL = "http://10.0.22.16:3000/";
     public ListMyRoomAdapter(List<Room> roomList, Context context) {
         this.roomList = roomList;
         this.context = context;
@@ -52,7 +54,12 @@ public class ListMyRoomAdapter extends RecyclerView.Adapter<ListMyRoomAdapter.My
     public void onBindViewHolder(@NonNull ListMyRoomAdapter.MyViewHolder holder, int position) {
         Room room = roomList.get(position);
         holder.nameRoom.setText(room.getNameRoom());
-        //holder.imageRoom.setImageResource(room.getImage());
+        Glide
+                .with(context)
+                .load(API_URL+room.getImageRoom())
+                .centerCrop()
+                .placeholder(R.drawable.bg_error_dialog)
+                .into(holder.imageRoom);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +156,7 @@ public class ListMyRoomAdapter extends RecyclerView.Adapter<ListMyRoomAdapter.My
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     m_Text = input.getText().toString();
-                                    Call<RoomResponse> call = ApiClient.getUserService().updateRoom(token,roomList.get(getAdapterPosition()).get_id(),new RoomRequest(m_Text,roomList.get(getAdapterPosition()).getIdUser()));
+                                    Call<RoomResponse> call = ApiClient.getUserService().updateRoom(token,roomList.get(getAdapterPosition()).get_id(),new RoomRequest(m_Text,roomList.get(getAdapterPosition()).getIdUser(),m_Text));
                                     call.enqueue(new retrofit2.Callback<RoomResponse>() {
                                         @Override
                                         public void onResponse(Call<RoomResponse> call, retrofit2.Response<RoomResponse> response) {

@@ -22,19 +22,26 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 import org.pytorch.demo.InfoViewFactory;
 import org.pytorch.demo.MainActivity;
 import org.pytorch.demo.R;
+import org.pytorch.demo.models.ImageResultResponse;
 import org.pytorch.demo.models.Plant;
 import org.pytorch.demo.models.PlantRequest;
 import org.pytorch.demo.models.PlantResponse;
 import org.pytorch.demo.ui.login.ApiClient;
+import org.pytorch.demo.ui.room.AddNewRoom;
 import org.pytorch.demo.vision.ImageClassificationActivity;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 public class AddInformation extends AppCompatActivity {
     ImageView back,notification, imagePlant;
     Button addPlant, updatePlant;
     EditText namePlant, nameRoomPlant, statusPlant;
-    String path;
     Uri uri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +84,7 @@ public class AddInformation extends AppCompatActivity {
             statusPlant.setText(nameDisease);
             updatePlant.setVisibility(Button.VISIBLE);
             updatePlant.setOnClickListener(v -> {
-                Call<PlantResponse> call = ApiClient.getUserService().updatePlant(token,idPlant,new PlantRequest(namePlant.getText().toString(), nameRoomPlant.getText().toString(), statusPlant.getText().toString(), id));
+                Call<PlantResponse> call = ApiClient.getUserService().updatePlant(token,idPlant,new PlantRequest(namePlant.getText().toString(), nameRoomPlant.getText().toString(), statusPlant.getText().toString(), id, null));
                 call.enqueue(new retrofit2.Callback<PlantResponse>() {
                     @Override
                     public void onResponse(Call<PlantResponse> call, retrofit2.Response<PlantResponse> response) {
@@ -133,7 +140,33 @@ public class AddInformation extends AppCompatActivity {
                 Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Call<PlantResponse> call = ApiClient.getUserService().createPlant(token, new PlantRequest(name, nameofRoom, status, id));
+            File file = new File(uri.getPath());
+            if(file == null){
+                Toast.makeText(this, "Please choose image", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String nameFile = name + nameofRoom + id + ".jpg";
+            RequestBody requestFile =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            // MultipartBody.Part is used to send also the actual file name
+            MultipartBody.Part body =
+                    MultipartBody.Part.createFormData("image", nameFile, requestFile);
+            Call<ImageResultResponse> imageCallUpload = ApiClient.getUserService().uploadImage(body);
+            imageCallUpload.enqueue(new retrofit2.Callback<ImageResultResponse>() {
+                @Override
+                public void onResponse(Call<ImageResultResponse> call, retrofit2.Response<ImageResultResponse> response) {
+                    if (response.isSuccessful()) {
+                        ImageResultResponse responseBody = response.body();
+                        if (responseBody != null) {
+                        }
+                    }
+                }
+                @Override
+                public void onFailure(Call<ImageResultResponse> call, Throwable t) {
+                    Toast.makeText(AddInformation.this, "Thêm ảnh thất bại", Toast.LENGTH_SHORT).show();
+                }
+            });
+            Call<PlantResponse> call = ApiClient.getUserService().createPlant(token, new PlantRequest(name, nameofRoom, status, id, nameFile));
             call.enqueue(new retrofit2.Callback<PlantResponse>() {
                 @Override
                 public void onResponse(Call<PlantResponse> call, retrofit2.Response<PlantResponse> response) {

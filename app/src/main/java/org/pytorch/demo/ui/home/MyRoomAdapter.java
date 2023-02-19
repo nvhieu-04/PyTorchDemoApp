@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.pytorch.demo.R;
 import org.pytorch.demo.models.Room;
 import org.pytorch.demo.ui.room.RoomDetail;
@@ -20,7 +22,7 @@ import java.util.List;
 public class MyRoomAdapter extends RecyclerView.Adapter<MyRoomAdapter.MyViewHolder> {
     List<Room> roomList;
     Context context;
-
+    private static final String API_URL = "http://10.0.22.16:3000/";
     public MyRoomAdapter(List<Room> roomList, Context context) {
         this.roomList = roomList;
         this.context = context;
@@ -40,6 +42,12 @@ public class MyRoomAdapter extends RecyclerView.Adapter<MyRoomAdapter.MyViewHold
             Room room = roomList.get(position);
             holder.nameRoom.setText(room.getNameRoom());
             //holder.imageRoom.setImageResource(room.getImage());
+            Glide
+                .with(context)
+                .load(API_URL+room.getImageRoom())
+                .centerCrop()
+                .placeholder(R.drawable.bg_error_dialog)
+                .into(holder.imageRoom);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
