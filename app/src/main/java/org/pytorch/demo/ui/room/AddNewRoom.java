@@ -47,7 +47,7 @@ import retrofit2.Call;
 public class AddNewRoom extends AppCompatActivity {
     ImageView back, notification, imageRoom;
     Uri uri;
-    EditText nameRoom;
+    EditText nameRoom, floorRoom;
     Button addRoom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,7 @@ public class AddNewRoom extends AppCompatActivity {
         imageRoom.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24);
         nameRoom = findViewById(R.id.editTextTextAddNameRoom);
         addRoom = findViewById(R.id.buttonAddNewRoom);
+        floorRoom = findViewById(R.id.editTextTextAddNameRoomFloor);
         imageRoom.setOnClickListener(v -> {
             //open gallery
             ImagePicker.with(this)
@@ -73,11 +74,12 @@ public class AddNewRoom extends AppCompatActivity {
         //
         addRoom.setOnClickListener(v -> {
             String name = nameRoom.getText().toString();
-            if (name.isEmpty()) {
+            String floor = floorRoom.getText().toString();
+            if (name.isEmpty() || floor.isEmpty()) {
                 Toast.makeText(this, "Please enter name room", Toast.LENGTH_SHORT).show();
             } else {
                 File file = new File(uri.getPath());
-                String nameFile = name + id + ".jpg";
+                String nameFile = name + floor + id + ".jpg";
                 // create RequestBody instance from file
                 RequestBody requestFile =
                         RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -101,7 +103,7 @@ public class AddNewRoom extends AppCompatActivity {
                 });
                 //add new room
 
-                Call<RoomResponse> call = ApiClient.getUserService().createRoom(token, new RoomRequest(name, id, nameFile));
+                Call<RoomResponse> call = ApiClient.getUserService().createRoom(token, new RoomRequest(name, id, nameFile,floor));
                 call.enqueue(new retrofit2.Callback<RoomResponse>() {
                     @Override
                     public void onResponse(Call<RoomResponse> call, retrofit2.Response<RoomResponse> response) {

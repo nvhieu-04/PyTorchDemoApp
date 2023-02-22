@@ -121,7 +121,19 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/myRoom"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent" >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                android:id="@+id/buttonaAddnewroomHome"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@drawable/border_shape"
+                android:backgroundTint="@color/top3"
+                android:drawableLeft="@drawable/icons8_add_24"
+                android:text="THÊM PHÒNG MỚI" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

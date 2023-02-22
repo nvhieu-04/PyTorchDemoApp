@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import org.pytorch.demo.ui.login.Login;
+
 public class WelcomeActivity extends AppCompatActivity {
 
   private ViewPager mViewPager;
@@ -53,7 +55,7 @@ public class WelcomeActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_welcome);
 
-    findViewById(R.id.skip_button).setOnClickListener(v -> startActivity(new Intent(WelcomeActivity.this, MainActivity.class)));
+    findViewById(R.id.skip_button).setOnClickListener(v -> startActivity(new Intent(WelcomeActivity.this, Login.class)));
 
     mViewPager = findViewById(R.id.welcome_view_pager);
     mViewPagerAdapter = new WelcomeViewPagerAdapter();

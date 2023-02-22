@@ -1,5 +1,6 @@
 package org.pytorch.demo.ui.login;
 
+import org.pytorch.demo.models.ImageDeleteRequest;
 import org.pytorch.demo.models.ImageResultResponse;
 import org.pytorch.demo.models.Plant;
 import org.pytorch.demo.models.PlantRequest;
@@ -47,7 +48,8 @@ public interface UserService {
     Call<PlantResponse> deletePlant(@Header("token") String token, @Path("id") String id);
     @DELETE("deleteRoom/{id}")
     Call<RoomResponse> deleteRoom(@Header("token") String token, @Path("id") String id);
-
+    @DELETE("deleteImage")
+    Call<ResponseBody> deleteImage(@Header("token") String token, @Body ImageDeleteRequest imageDeleteRequest);
     @PUT("updatePlant/{id}")
     Call<PlantResponse> updatePlant(@Header("token") String token, @Path("id") String id, @Body PlantRequest plantRequest);
     @PUT("updateRoom/{id}")

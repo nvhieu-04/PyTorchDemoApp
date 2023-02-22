@@ -3,15 +3,18 @@ package org.pytorch.demo.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 ;import org.pytorch.demo.MainActivity;
@@ -25,6 +28,7 @@ public class Login extends AppCompatActivity {
     EditText email, password;
     Button login;
     TextView register, forgotPassword;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,7 @@ public class Login extends AppCompatActivity {
         login = findViewById(R.id.buttonLogin);
         register = findViewById(R.id.textViewRegister);
         forgotPassword = findViewById(R.id.textViewForgetPassword);
+        progressBar = findViewById(R.id.progressBarLogin);
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -45,9 +50,18 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(v -> {
                     String email = this.email.getText().toString();
                     String password = this.password.getText().toString();
+                    progressBar.setVisibility(android.view.View.VISIBLE);
+                    login.setVisibility(android.view.View.INVISIBLE);
                     if (email.isEmpty() || password.isEmpty()) {
+                        login.setVisibility(android.view.View.VISIBLE);
                         return;
                     }
+                    ProgressDialog pd = new ProgressDialog(this);
+                    pd.setTitle("Đang đăng nhập...");
+                    pd.setMessage("Vui lòng chờ.");
+                    pd.setCancelable(false);
+                    pd.setIndeterminate(true);
+                    pd.show();
                     LoginRequest loginRequest = new LoginRequest(email, password);
                     Call<LoginResponse> call = ApiClient.getUserService().login(loginRequest);
                     call.enqueue(new Callback<LoginResponse>() {

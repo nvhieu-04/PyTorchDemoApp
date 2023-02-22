@@ -19,6 +19,7 @@
             android:id="@+id/roomImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/living_room">
 

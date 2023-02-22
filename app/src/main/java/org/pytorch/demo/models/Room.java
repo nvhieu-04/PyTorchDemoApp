@@ -17,8 +17,10 @@ public class Room {
     private String __v;
     @SerializedName("imageRoom")
     private String imageRoom;
+    @SerializedName("floor")
+    private String floor;
 
-    public Room(String _id, String nameRoom, String idUser, String createdAt, String id, String __v, String imageRoom) {
+    public Room(String _id, String nameRoom, String idUser, String createdAt, String id, String __v, String imageRoom, String floor) {
         this._id = _id;
         this.nameRoom = nameRoom;
         this.idUser = idUser;
@@ -26,6 +28,7 @@ public class Room {
         this.id = id;
         this.__v = __v;
         this.imageRoom = imageRoom;
+        this.floor = floor;
     }
 
     public String get_id() {
@@ -82,5 +85,13 @@ public class Room {
 
     public void setImageRoom(String imageRoom) {
         this.imageRoom = imageRoom;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
     }
 }

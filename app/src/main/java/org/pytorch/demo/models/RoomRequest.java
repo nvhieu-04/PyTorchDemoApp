@@ -4,11 +4,13 @@ public class RoomRequest {
     private String nameRoom;
     private String idUser;
     private String imageRoom;
+    private String floor;
 
-    public RoomRequest(String nameRoom, String idUser, String imageRoom) {
+    public RoomRequest(String nameRoom, String idUser, String imageRoom, String floor) {
         this.nameRoom = nameRoom;
         this.idUser = idUser;
         this.imageRoom = imageRoom;
+        this.floor = floor;
     }
 
     public String getNameRoom() {
@@ -33,5 +35,21 @@ public class RoomRequest {
 
     public void setImg(String imageRoom) {
         this.imageRoom = imageRoom;
+    }
+
+    public String getImageRoom() {
+        return imageRoom;
+    }
+
+    public void setImageRoom(String imageRoom) {
+        this.imageRoom = imageRoom;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
     }
 }

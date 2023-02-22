@@ -17,8 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 
 import org.pytorch.demo.R;
+import org.pytorch.demo.models.ImageDeleteRequest;
 import org.pytorch.demo.models.Plant;
 import org.pytorch.demo.models.PlantResponse;
 import org.pytorch.demo.ui.login.ApiClient;
@@ -26,12 +28,15 @@ import org.pytorch.demo.ui.plant.PlantDetail;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHolder> {
     List<Plant> plantList;
     Context context;
-    private static final String API_URL = "http://10.0.22.16:3000/";
+    private static final String API_URL = "http://104.238.151.188:3000/";
 
     public PlantsAdapter(List<Plant> plantList, Context context) {
         this.plantList = plantList;
@@ -55,7 +60,9 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHold
                 .with(context)
                 .load(API_URL+plant.getImagePlant())
                 .centerCrop()
-                .placeholder(R.drawable.bg_error_dialog)
+                .transform((new RoundedCorners(15)))
+                .transition(com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade())
+                .placeholder(R.drawable.no_image_placeholder_svg)
                 .into(holder.imagePlant);
         holder.nameRoom.setText(plant.getNameRoom());
         holder.healthyStatus.setText("Sức khỏe: "+plant.getHealthStatus());
@@ -84,8 +91,7 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public View view;
         public TextView namePlant,nameRoom,healthyStatus,age;
-        public ImageView imagePlant;
-        public Button btnDelete;
+        public ImageView imagePlant, btnDelete;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -112,7 +118,18 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHold
                     builder.setPositiveButton("XOÁ", new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
-                            // Do nothing but close the dialog
+//                            Call<ResponseBody> deleteImage = ApiClient.getUserService().deleteImage(token, new ImageDeleteRequest(plantList.get(getAdapterPosition()).getImagePlant()));
+//                            deleteImage.enqueue(new retrofit2.Callback<ResponseBody>() {
+//                                @Override
+//                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//                                }
+//                            });
                             Call<PlantResponse> call = ApiClient.getUserService().deletePlant(token,plantList.get(getAdapterPosition()).get_id());
                             call.enqueue(new retrofit2.Callback<PlantResponse>() {
                                 @Override

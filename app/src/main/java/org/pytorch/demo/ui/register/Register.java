@@ -2,15 +2,18 @@ package org.pytorch.demo.ui.register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,7 @@ public class Register extends AppCompatActivity {
     EditText email, password, confirmPassword, name;
     Button register;
     TextView login;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,7 @@ public class Register extends AppCompatActivity {
         name = findViewById(R.id.editTextTextUserName);
         register = findViewById(R.id.buttonRegister);
         login = findViewById(R.id.textViewtoLogin);
+        progressBar = findViewById(R.id.progressBarRegister);
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -50,9 +55,20 @@ public class Register extends AppCompatActivity {
                     String password = this.password.getText().toString();
                     String confirmPassword = this.confirmPassword.getText().toString();
                     String name = this.name.getText().toString();
+                    progressBar.setVisibility(android.view.View.VISIBLE);
+                    register.setVisibility(View.INVISIBLE);
+
                     if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || name.isEmpty()) {
+                        progressBar.setVisibility(android.view.View.INVISIBLE);
+                        register.setVisibility(android.view.View.VISIBLE);
                         return;
                     }
+                    ProgressDialog pd = new ProgressDialog(this);
+                    pd.setTitle("Đang đăng kí...");
+                    pd.setMessage("Vui lòng chờ.");
+                    pd.setCancelable(false);
+                    pd.setIndeterminate(true);
+                    pd.show();
                     RegisterRequest registerRequest = new RegisterRequest(name,email, password);
                     Call<RegisterResponse> call = ApiClient.getUserService().register(registerRequest);
                     call.enqueue(new Callback<RegisterResponse>() {
@@ -82,6 +98,12 @@ public class Register extends AppCompatActivity {
                             Toast.makeText(Register.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+                }
+        );
+        login.setOnClickListener(
+                v -> {
+                    Intent intent = new Intent(Register.this, org.pytorch.demo.ui.login.Login.class);
+                    startActivity(intent);
                 }
         );
 

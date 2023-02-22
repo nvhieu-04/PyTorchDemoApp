@@ -3,7 +3,9 @@ package org.pytorch.demo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -21,8 +23,17 @@ public class Splash_screen extends AppCompatActivity {
         int secondsDelayed = 1;
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                startActivity(new Intent(Splash_screen.this, WelcomeActivity.class));
-                finish();
+                SharedPreferences prefs = getSharedPreferences("myKey", Context.MODE_PRIVATE);
+                String token = prefs.getString("TOKEN", null);
+                if(token != null)
+                {
+                    startActivity(new Intent(Splash_screen.this, MainActivity.class));
+                }
+                else
+                {
+                    startActivity(new Intent(Splash_screen.this, WelcomeActivity.class));
+                    finish();
+                }
             }
         }, secondsDelayed * 2000);
     }

@@ -19,8 +19,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 
 import org.pytorch.demo.R;
+import org.pytorch.demo.models.ImageDeleteRequest;
 import org.pytorch.demo.models.PlantResponse;
 import org.pytorch.demo.models.Room;
 import org.pytorch.demo.models.RoomRequest;
@@ -30,12 +32,14 @@ import org.pytorch.demo.ui.room.RoomDetail;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 
 public class ListMyRoomAdapter extends RecyclerView.Adapter<ListMyRoomAdapter.MyViewHolder>{
     List<Room> roomList;
     Context context;
-    private static final String API_URL = "http://10.0.22.16:3000/";
+    private static final String API_URL = "http://104.238.151.188:3000/";
     public ListMyRoomAdapter(List<Room> roomList, Context context) {
         this.roomList = roomList;
         this.context = context;
@@ -58,8 +62,11 @@ public class ListMyRoomAdapter extends RecyclerView.Adapter<ListMyRoomAdapter.My
                 .with(context)
                 .load(API_URL+room.getImageRoom())
                 .centerCrop()
-                .placeholder(R.drawable.bg_error_dialog)
+                .transform(new RoundedCorners(20))
+                .transition(com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade(500))
+                .placeholder(R.drawable.no_image_placeholder_svg)
                 .into(holder.imageRoom);
+        holder.countPlant.setText("Tầng: "+room.getFloor());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,8 +85,7 @@ public class ListMyRoomAdapter extends RecyclerView.Adapter<ListMyRoomAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public View view;
         public TextView countPlant, nameRoom, description;
-        public ImageView imageRoom;
-        public Button btnDetete, btnEdit;
+        public ImageView imageRoom, btnDetete, btnEdit;
         public String m_Text = "";
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -109,6 +115,18 @@ public class ListMyRoomAdapter extends RecyclerView.Adapter<ListMyRoomAdapter.My
 
                                 public void onClick(DialogInterface dialog, int which) {
                                     // Do nothing but close the dialog
+//                                    Call<ResponseBody> deleteImage = ApiClient.getUserService().deleteImage(token, new ImageDeleteRequest(roomList.get(getAdapterPosition()).getImageRoom()));
+//                                    deleteImage.enqueue(new retrofit2.Callback<ResponseBody>() {
+//                                        @Override
+//                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//                                        }
+//                                    });
                                     Call<RoomResponse> call = ApiClient.getUserService().deleteRoom(token,roomList.get(getAdapterPosition()).get_id());
                                     call.enqueue(new retrofit2.Callback<RoomResponse>() {
                                         @Override
@@ -156,7 +174,7 @@ public class ListMyRoomAdapter extends RecyclerView.Adapter<ListMyRoomAdapter.My
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     m_Text = input.getText().toString();
-                                    Call<RoomResponse> call = ApiClient.getUserService().updateRoom(token,roomList.get(getAdapterPosition()).get_id(),new RoomRequest(m_Text,roomList.get(getAdapterPosition()).getIdUser(),m_Text));
+                                    Call<RoomResponse> call = ApiClient.getUserService().updateRoom(token,roomList.get(getAdapterPosition()).get_id(),new RoomRequest(m_Text,roomList.get(getAdapterPosition()).getIdUser(),roomList.get(getAdapterPosition()).getImageRoom(),roomList.get(getAdapterPosition()).getFloor()));
                                     call.enqueue(new retrofit2.Callback<RoomResponse>() {
                                         @Override
                                         public void onResponse(Call<RoomResponse> call, retrofit2.Response<RoomResponse> response) {

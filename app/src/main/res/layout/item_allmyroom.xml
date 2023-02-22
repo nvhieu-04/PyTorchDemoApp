@@ -35,7 +35,7 @@
                 android:text="Phòng Khách"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,21 +61,22 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/buttonDeleteRoom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:text="XOÁ" />
-
-            <Button
+            <ImageView
                 android:id="@+id/buttonEditNameRoom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="60dp"
                 android:layout_weight="1"
-                android:text="ĐỔI TÊN" />
+                app:srcCompat="@drawable/icons8_edit_text_75___" />
+
+            <ImageView
+                android:id="@+id/buttonDeleteRoom"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="60dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icons8_trash_can_96___" />
+
         </LinearLayout>
 
     </LinearLayout>

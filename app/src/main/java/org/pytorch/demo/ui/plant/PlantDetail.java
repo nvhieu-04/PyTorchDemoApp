@@ -26,7 +26,7 @@ import org.pytorch.demo.ui.login.ApiClient;
 import retrofit2.Call;
 
 public class PlantDetail extends AppCompatActivity {
-    public static final String API_URL = "http://10.0.22.16:3000/";
+    public static final String API_URL = "http://104.238.151.188:3000/";
     ImageView imagePlant, back;
     TextView namePlant, nameRoom, age, healthyStatus;
     Button btnEdit, btnDelete;

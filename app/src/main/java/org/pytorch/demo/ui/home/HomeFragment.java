@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import org.pytorch.demo.databinding.FragmentHomeBinding;
 import org.pytorch.demo.models.Plant;
 import org.pytorch.demo.models.Room;
 import org.pytorch.demo.ui.login.ApiClient;
+import org.pytorch.demo.ui.room.AddNewRoom;
 import org.pytorch.demo.ui.room.SeeAllRoom;
 
 import java.util.ArrayList;
@@ -35,12 +37,14 @@ public class HomeFragment extends Fragment {
     ArrayList<Room> rooms;
     ArrayList<Plant> plants;
     TextView seeAllRoom,seeAllPlantNeedCare;
+    Button addRoom;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         seeAllRoom = binding.seeAllPlantInRoom;
         seeAllPlantNeedCare = binding.seeAllPlantNeedCare;
+        addRoom = binding.buttonaAddnewroomHome;
         //
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("myKey", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("TOKEN", null);
@@ -70,6 +74,7 @@ public class HomeFragment extends Fragment {
                             rooms.add(room);
                         }
                     }
+                    addRoom.setVisibility(View.GONE);
                     myRoomAdapter.notifyDataSetChanged();
                 }
             }
@@ -115,7 +120,14 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         plantNeedCareList.setLayoutManager(linearLayoutManager1);
         plantNeedCareList.setAdapter(plantsAdapter);
-
+        addRoom.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(getContext(), AddNewRoom.class));
+                    }
+                }
+        );
         return root;
     }
 
