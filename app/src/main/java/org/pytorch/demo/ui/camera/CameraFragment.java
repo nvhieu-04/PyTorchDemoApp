@@ -8,12 +8,18 @@ import static androidx.core.content.PermissionChecker.checkSelfPermission;
 import android.Manifest;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +40,8 @@ import org.pytorch.demo.R;
 import org.pytorch.demo.vision.ImageClassificationActivity;
 import org.pytorch.demo.vision.VisionListActivity;
 
+import java.io.File;
+
 public class CameraFragment extends Fragment {
     private static final String API_URL = "http://104.238.151.188:3000/";
     ListCardView levit128;
@@ -47,8 +55,9 @@ public class CameraFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_camera, container, false);
     }
+
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle  savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         levit128 = view.findViewById(R.id.vision_card_DeiT_click_area);
 
@@ -56,12 +65,10 @@ public class CameraFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-
-                        if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                             // this will request for permission when permission is not true
-                        }else{
+                        } else {
                             ProgressDialog pd = new ProgressDialog(getActivity());
                             pd.setTitle("Đang đang tải model");
                             pd.setMessage("Vui lòng chờ....");
@@ -69,36 +76,44 @@ public class CameraFragment extends Fragment {
                             pd.setIndeterminate(true);
                             pd.show();
                             // Download code here
-                            String externalFilesDir = getContext().getExternalFilesDir(DIRECTORY_DOWNLOADS).getAbsolutePath();
-                            String modelFileAbsoluteFilePath = externalFilesDir+"/levit_128.pt";
-                            Toast.makeText(getActivity(), modelFileAbsoluteFilePath, Toast.LENGTH_SHORT).show();
+                            String fileName = "levit_128.pt";
+                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+                            Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
+                            if (file.exists()) {
+                                final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+                                intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_128.pt");
+                                intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                                        InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                                pd.dismiss();
+                                startActivity(intent);
+                            } else {
+                                DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
+                                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(API_URL + "levit_128.pt"));
+                                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                                request.setTitle("Download " + fileName);
+                                request.setDescription("Downloading File");
+                                request.allowScanningByMediaScanner();
+                                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                                request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "levit_128.pt");
+                                downloadManager.enqueue(request);
+                                BroadcastReceiver onComplete = new BroadcastReceiver() {
+                                    public void onReceive(Context ctxt, Intent intent) {
+                                        final Intent intent1 = new Intent(getActivity(), ImageClassificationActivity.class);
+                                        intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_128.pt");
+                                        intent1.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                                                InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                                        pd.dismiss();
+                                        startActivity(intent1);
+                                    }
+                                };
+                                getActivity().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
-                            DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
-                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(API_URL + "levit_128.pt"));
-                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-                            request.setTitle("Download");
-                            request.setDescription("Downloading File");
-                            request.allowScanningByMediaScanner();
-                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                            request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "levit_128.pt");
-                            downloadManager.enqueue(request);
-
-                            //start activity
-
-
-                            final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-                            intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME,
-                                    modelFileAbsoluteFilePath);
-                            intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
-                                    InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
-                            startActivity(intent);
+                            }
                         }
-
 
                     }
                 }
         );
-
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

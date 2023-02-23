@@ -55,6 +55,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         startActivity(new Intent(getContext(), SeeAllRoom.class));
+                        //getActivity().overridePendingTransition(R.anim.anim_move_right, R.anim.anim_move_left);
                     }
                 }
         );
