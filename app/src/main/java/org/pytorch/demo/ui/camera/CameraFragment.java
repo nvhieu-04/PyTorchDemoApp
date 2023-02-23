@@ -81,7 +81,7 @@ public class CameraFragment extends Fragment {
                             Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
                             if (file.exists()) {
                                 final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-                                intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_128.pt");
+                                intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, file);
                                 intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
                                         InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
                                 pd.dismiss();
@@ -99,7 +99,7 @@ public class CameraFragment extends Fragment {
                                 BroadcastReceiver onComplete = new BroadcastReceiver() {
                                     public void onReceive(Context ctxt, Intent intent) {
                                         final Intent intent1 = new Intent(getActivity(), ImageClassificationActivity.class);
-                                        intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_128.pt");
+                                        intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, file);
                                         intent1.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
                                                 InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
                                         pd.dismiss();
