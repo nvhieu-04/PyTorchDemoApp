@@ -75,6 +75,8 @@ public class AddInformation extends AppCompatActivity {
         String nameRoom = intent.getStringExtra("nameRoom");
         String idPlant = intent.getStringExtra("idPlant");
         String namePlant1 = intent.getStringExtra("namePlant");
+        String imagePlant1 = intent.getStringExtra("image");
+        Toast.makeText(this, imagePlant1, Toast.LENGTH_SHORT).show();
         Boolean isUpdate = intent.getBooleanExtra("edit", false);
         if (isUpdate)
         {

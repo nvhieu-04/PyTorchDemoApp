@@ -34,6 +34,7 @@ import androidx.core.content.PermissionChecker;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import org.pytorch.demo.Constants;
 import org.pytorch.demo.InfoViewFactory;
 import org.pytorch.demo.ListCardView;
 import org.pytorch.demo.R;
@@ -75,10 +76,15 @@ public class CameraFragment extends Fragment {
                             pd.setCancelable(false);
                             pd.setIndeterminate(true);
                             pd.show();
-                            // Download code here
                             String fileName = "levit_128.pt";
                             File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
                             Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
+                            Constants.IMAGENET_CLASSES = new String[]{
+                                    "0:  Gray_leaf_spot",
+                                    "1: Common_rust",
+                                    "2: Northern_Leaf_Blight",
+                                    "3: Healthy",
+                            };
                             if (file.exists()) {
                                 final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
                                 intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, file);

@@ -1,7 +1,14 @@
 package org.pytorch.demo.vision;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageFormat;
+import android.graphics.Rect;
+import android.graphics.YuvImage;
+import android.media.Image;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,7 +33,10 @@ import org.pytorch.demo.ui.plant.AddInformation;
 import org.pytorch.demo.vision.view.ResultRowView;
 import org.pytorch.torchvision.TensorImageUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.util.LinkedList;
 import java.util.Locale;
@@ -77,7 +87,8 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
   private Queue<Long> mMovingAvgQueue = new LinkedList<>();
   private ImageView mCaptureImage;
   protected String mDiseaseName;
-
+  protected Image imageCapture;
+  protected String fname;
   @Override
   protected int getContentViewLayoutId() {
     return R.layout.activity_image_classification;
@@ -109,8 +120,11 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     mCaptureImage = findViewById(R.id.imageView12);
     mCaptureImage.setOnClickListener(v -> {
         Intent intent1 = new Intent(ImageClassificationActivity.this, AddInformation.class);
+        Bitmap bitmap = toBitmap(imageCapture);
+        saveImage(bitmap);
         intent1.putExtra("diseaseName", mDiseaseName);
         intent1.putExtra("nameRoom", nameRoom);
+        intent1.putExtra("image", fname);
         startActivity(intent1);
     });
   }
@@ -148,7 +162,46 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
       }
     }
   }
+  private Bitmap toBitmap(Image image) {
+    Image.Plane[] planes = image.getPlanes();
+    ByteBuffer yBuffer = planes[0].getBuffer();
+    ByteBuffer uBuffer = planes[1].getBuffer();
+    ByteBuffer vBuffer = planes[2].getBuffer();
 
+    int ySize = yBuffer.remaining();
+    int uSize = uBuffer.remaining();
+    int vSize = vBuffer.remaining();
+
+    byte[] nv21 = new byte[ySize + uSize + vSize];
+    //U and V are swapped
+    yBuffer.get(nv21, 0, ySize);
+    vBuffer.get(nv21, ySize, vSize);
+    uBuffer.get(nv21, ySize + vSize, uSize);
+
+    YuvImage yuvImage = new YuvImage(nv21, ImageFormat.NV21, image.getWidth(), image.getHeight(), null);
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), 75, out);
+
+    byte[] imageBytes = out.toByteArray();
+    return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+  }
+  protected void saveImage(Bitmap finalBitmap) {
+    String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+    File myDir = new File(root + "/Image_Disease");
+    myDir.mkdirs();
+    fname = "Image-" + mDiseaseName + ".jpg";
+    File file = new File(myDir, fname);
+    if (file.exists()) file.delete();
+    Log.i("LOAD", root + fname);
+    try {
+      FileOutputStream out = new FileOutputStream(file);
+      finalBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
+      out.flush();
+      out.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
   protected String getModuleAssetName() {
     if (!TextUtils.isEmpty(mModuleAssetName)) {
       return mModuleAssetName;
@@ -196,6 +249,11 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
 
       final float[] scores = outputTensor.getDataAsFloatArray();
       final int[] ixs = Utils.topK(scores, TOP_K);
+      imageCapture = image.getImage();
+      Bitmap bitmap = toBitmap(imageCapture);
+      saveImage(bitmap);
+      //Save imageCapture to internal
+
 
       final String[] topKClassNames = new String[TOP_K];
       final float[] topKScores = new float[TOP_K];
