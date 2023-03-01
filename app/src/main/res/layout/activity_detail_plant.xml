@@ -19,7 +19,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -38,10 +38,11 @@
 
             <TextView
                 android:id="@+id/namePlant_Detail"
-                android:layout_width="match_parent"
+                android:layout_width="480dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
+                android:singleLine="true"
                 android:text="Tên cây"
                 android:textColor="@color/black"
                 android:textSize="30sp"
@@ -53,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:singleLine="true"
                 android:text="Vị trí"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -63,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:singleLine="true"
                 android:text="Trạng thái"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -73,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:singleLine="true"
                 android:text="Trạng thái"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -91,6 +95,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="40dp"
                     android:layout_marginBottom="32dp"
+                    android:background="@drawable/border_shape"
                     android:backgroundTint="@color/top3"
                     android:text="Cập nhật thông tin" />
 
@@ -102,8 +107,10 @@
                     android:layout_marginStart="28dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="32dp"
+                    android:background="@drawable/border_shape"
                     android:backgroundTint="@color/top3"
                     android:text="Xóa" />
+
             </LinearLayout>
 
         </LinearLayout>

@@ -120,8 +120,6 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     mCaptureImage = findViewById(R.id.imageView12);
     mCaptureImage.setOnClickListener(v -> {
         Intent intent1 = new Intent(ImageClassificationActivity.this, AddInformation.class);
-        Bitmap bitmap = toBitmap(imageCapture);
-        saveImage(bitmap);
         intent1.putExtra("diseaseName", mDiseaseName);
         intent1.putExtra("nameRoom", nameRoom);
         intent1.putExtra("image", fname);
@@ -251,10 +249,6 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
       final int[] ixs = Utils.topK(scores, TOP_K);
       imageCapture = image.getImage();
       Bitmap bitmap = toBitmap(imageCapture);
-      saveImage(bitmap);
-      //Save imageCapture to internal
-
-
       final String[] topKClassNames = new String[TOP_K];
       final float[] topKScores = new float[TOP_K];
       for (int i = 0; i < TOP_K; i++) {
@@ -263,6 +257,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
         mDiseaseName = Constants.IMAGENET_CLASSES[ix];
         topKScores[i] = scores[ix];
       }
+      saveImage(bitmap);
       final long analysisDuration = SystemClock.elapsedRealtime() - startTime;
       return new AnalysisResult(topKClassNames, topKScores, moduleForwardDuration, analysisDuration);
     } catch (Exception e) {

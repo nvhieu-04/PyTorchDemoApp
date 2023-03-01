@@ -1,7 +1,6 @@
 package org.pytorch.demo.ui.plant;
 
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
+import static org.pytorch.demo.ui.plant.PlantDetail.API_URL;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -17,17 +17,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import org.pytorch.demo.InfoViewFactory;
 import org.pytorch.demo.MainActivity;
 import org.pytorch.demo.R;
 import org.pytorch.demo.models.ImageResultResponse;
-import org.pytorch.demo.models.Plant;
 import org.pytorch.demo.models.PlantRequest;
 import org.pytorch.demo.models.PlantResponse;
 import org.pytorch.demo.ui.login.ApiClient;
-import org.pytorch.demo.ui.room.AddNewRoom;
 import org.pytorch.demo.vision.ImageClassificationActivity;
 
 import java.io.File;
@@ -35,7 +36,6 @@ import java.io.File;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 public class AddInformation extends AppCompatActivity {
@@ -76,17 +76,59 @@ public class AddInformation extends AppCompatActivity {
         String idPlant = intent.getStringExtra("idPlant");
         String namePlant1 = intent.getStringExtra("namePlant");
         String imagePlant1 = intent.getStringExtra("image");
+        String imageUpdateDetail = intent.getStringExtra("imageDetail");
         Toast.makeText(this, imagePlant1, Toast.LENGTH_SHORT).show();
         Boolean isUpdate = intent.getBooleanExtra("edit", false);
+        if(imagePlant1 != null)
+        {
+            String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+            File myDir = new File(root + "/Image_Disease");
+            File fileImagesRoot = new File(myDir, imagePlant1);
+            imagePlant.setImageURI(Uri.fromFile(fileImagesRoot));
+        }
         if (isUpdate)
         {
+            if(imageUpdateDetail != null)
+            {
+                Glide
+                        .with(this)
+                        .load(API_URL+imageUpdateDetail)
+                        .centerCrop()
+                        .placeholder(R.drawable.bg_error_dialog)
+                        .into(imagePlant);
+                imagePlant.setImageURI(Uri.parse(API_URL+imageUpdateDetail));
+            }
             addPlant.setVisibility(Button.INVISIBLE);
             namePlant.setText(namePlant1);
             nameRoomPlant.setText(nameRoom);
             statusPlant.setText(nameDisease);
             updatePlant.setVisibility(Button.VISIBLE);
             updatePlant.setOnClickListener(v -> {
-                Call<PlantResponse> call = ApiClient.getUserService().updatePlant(token,idPlant,new PlantRequest(namePlant.getText().toString(), nameRoomPlant.getText().toString(), statusPlant.getText().toString(), id, null));
+                String name = namePlant.getText().toString();
+                String nameofRoom = nameRoomPlant.getText().toString();
+                File file = new File(uri.getPath());
+                String nameFile = name + nameofRoom + id + ".jpg";
+                RequestBody requestFile =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                // MultipartBody.Part is used to send also the actual file name
+                MultipartBody.Part body =
+                        MultipartBody.Part.createFormData("image", nameFile, requestFile);
+                Call<ImageResultResponse> imageCallUpload = ApiClient.getUserService().uploadImage(body);
+                imageCallUpload.enqueue(new retrofit2.Callback<ImageResultResponse>() {
+                    @Override
+                    public void onResponse(Call<ImageResultResponse> call, retrofit2.Response<ImageResultResponse> response) {
+                        if (response.isSuccessful()) {
+                            ImageResultResponse responseBody = response.body();
+                            if (responseBody != null) {
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ImageResultResponse> call, Throwable t) {
+                        Toast.makeText(AddInformation.this, "Thêm ảnh thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                Call<PlantResponse> call = ApiClient.getUserService().updatePlant(token,idPlant,new PlantRequest(namePlant.getText().toString(), nameRoomPlant.getText().toString(), statusPlant.getText().toString(), id, nameFile));
                 call.enqueue(new retrofit2.Callback<PlantResponse>() {
                     @Override
                     public void onResponse(Call<PlantResponse> call, retrofit2.Response<PlantResponse> response) {
@@ -143,9 +185,14 @@ public class AddInformation extends AppCompatActivity {
                 return;
             }
             File file = new File(uri.getPath());
-            if(file == null){
-                Toast.makeText(this, "Please choose image", Toast.LENGTH_SHORT).show();
-                return;
+            if(imagePlant1 != null)
+            {
+                String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+                File myDir = new File(root + "/Image_Disease");
+                File fileImage = new File(myDir, imagePlant1);
+                file = new File(fileImage.getPath());
+                Toast.makeText(this, "Địa chỉ ảnh:"+file, Toast.LENGTH_SHORT).show();
+
             }
             String nameFile = name + nameofRoom + id + ".jpg";
             RequestBody requestFile =

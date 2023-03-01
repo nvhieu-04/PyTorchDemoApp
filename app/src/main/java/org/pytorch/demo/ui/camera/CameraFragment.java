@@ -71,7 +71,7 @@ public class CameraFragment extends Fragment {
                             // this will request for permission when permission is not true
                         } else {
                             ProgressDialog pd = new ProgressDialog(getActivity());
-                            pd.setTitle("Đang đang tải model");
+                            pd.setTitle("Đang tải model");
                             pd.setMessage("Vui lòng chờ....");
                             pd.setCancelable(false);
                             pd.setIndeterminate(true);
@@ -80,10 +80,10 @@ public class CameraFragment extends Fragment {
                             File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
                             Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
                             Constants.IMAGENET_CLASSES = new String[]{
-                                    "0:  Gray_leaf_spot",
-                                    "1: Common_rust",
-                                    "2: Northern_Leaf_Blight",
-                                    "3: Healthy",
+                                    "Gray_leaf_spot",
+                                    "Common_rust",
+                                    "Northern_Leaf_Blight",
+                                    "Healthy",
                             };
                             if (file.exists()) {
                                 final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
@@ -96,7 +96,7 @@ public class CameraFragment extends Fragment {
                                 DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
                                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(API_URL + "levit_128.pt"));
                                 request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-                                request.setTitle("Download " + fileName);
+                                request.setTitle(fileName);
                                 request.setDescription("Downloading File");
                                 request.allowScanningByMediaScanner();
                                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);

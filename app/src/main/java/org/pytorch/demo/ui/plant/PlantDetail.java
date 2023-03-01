@@ -125,7 +125,7 @@ public class PlantDetail extends AppCompatActivity {
                     intent.putExtra("nameRoom", room);
                     intent.putExtra("idPlant", idPlant);
                     intent.putExtra("diseaseName", status);
-                    intent.putExtra("image", image);
+                    intent.putExtra("imageDetail", image);
                     intent.putExtra("edit", true);
                     startActivity(intent);
                 }
