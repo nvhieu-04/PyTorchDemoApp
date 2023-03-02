@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 ;import org.pytorch.demo.MainActivity;
 import org.pytorch.demo.R;
+import org.pytorch.demo.ui.register.Register;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,6 +48,12 @@ public class Login extends AppCompatActivity {
         backLogin.setOnClickListener(v -> {
             onBackPressed();
         });
+        register.setOnClickListener(
+                v -> {
+                    Intent intent = new Intent(Login.this, Register.class);
+                    startActivity(intent);
+                }
+        );
         login.setOnClickListener(v -> {
                     String email = this.email.getText().toString();
                     String password = this.password.getText().toString();
