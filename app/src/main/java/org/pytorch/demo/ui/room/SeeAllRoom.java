@@ -19,6 +19,7 @@ import org.pytorch.demo.models.Room;
 import org.pytorch.demo.ui.home.ListMyRoomAdapter;
 import org.pytorch.demo.ui.home.MyRoomAdapter;
 import org.pytorch.demo.ui.login.ApiClient;
+import org.pytorch.demo.ui.plant.AddInformation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,6 @@ public class SeeAllRoom extends AppCompatActivity {
             startActivity(new Intent(SeeAllRoom.this, AddNewRoom.class));
         }
         );
-        //
         //
         Call<List<Room>> call = ApiClient.getUserService().getRoom(token);
         call.enqueue(new retrofit2.Callback<List<Room>>() {

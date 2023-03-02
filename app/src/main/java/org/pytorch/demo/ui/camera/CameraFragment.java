@@ -42,6 +42,7 @@ import org.pytorch.demo.vision.ImageClassificationActivity;
 import org.pytorch.demo.vision.VisionListActivity;
 
 import java.io.File;
+import java.util.Objects;
 
 public class CameraFragment extends Fragment {
     private static final String API_URL = "http://104.238.151.188:3000/";
@@ -66,10 +67,9 @@ public class CameraFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                            // this will request for permission when permission is not true
-                        } else {
+                        if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                            //android 11
                             ProgressDialog pd = new ProgressDialog(getActivity());
                             pd.setTitle("Đang tải model");
                             pd.setMessage("Vui lòng chờ....");

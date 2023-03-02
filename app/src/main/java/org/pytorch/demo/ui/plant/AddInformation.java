@@ -94,7 +94,7 @@ public class AddInformation extends AppCompatActivity {
                         .with(this)
                         .load(API_URL+imageUpdateDetail)
                         .centerCrop()
-                        .placeholder(R.drawable.bg_error_dialog)
+                        .placeholder(R.drawable.ic_error_icon)
                         .into(imagePlant);
                 imagePlant.setImageURI(Uri.parse(API_URL+imageUpdateDetail));
             }
@@ -190,7 +190,7 @@ public class AddInformation extends AppCompatActivity {
                 String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
                 File myDir = new File(root + "/Image_Disease");
                 File fileImage = new File(myDir, imagePlant1);
-                file = new File(fileImage.getPath());
+                file = new File(Uri.fromFile(fileImage).getPath());
                 Toast.makeText(this, "Địa chỉ ảnh:"+file, Toast.LENGTH_SHORT).show();
 
             }
