@@ -1,14 +1,11 @@
 package org.pytorch.demo.ui.login;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -17,9 +14,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-;import org.pytorch.demo.MainActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.pytorch.demo.MainActivity;
 import org.pytorch.demo.R;
 import org.pytorch.demo.ui.register.Register;
+
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,6 +86,7 @@ public class Login extends AppCompatActivity {
                                         SharedPreferences sharedPreferences = getSharedPreferences("myKey", MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("TOKEN", token);
+                                        editor.putLong("ExpiredDate", System.currentTimeMillis() + TimeUnit.HOURS.toMillis(46));
                                         editor.apply();
                                         // Navigate to home activity
                                         //Toast.makeText(Login.this, token, Toast.LENGTH_SHORT).show();

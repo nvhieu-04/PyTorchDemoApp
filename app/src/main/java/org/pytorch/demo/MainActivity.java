@@ -40,14 +40,6 @@ public class MainActivity extends AppCompatActivity {
     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
     window.setStatusBarColor(Color.parseColor("#DEEAD8"));
-    // Passing each menu ID as a set of Ids because each
-    // menu should be considered as top level destinations.
-    AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-            R.id.navigation_home, R.id.navigation_camera, R.id.navigation_search, R.id.navigation_profile, R.id.navigation_history)
-            .build();
-    NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-    //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-    NavigationUI.setupWithNavController(binding.navView, navController);
     //get API store data user information in shared preferences
     SharedPreferences prefs = getSharedPreferences("myKey", Context.MODE_PRIVATE);
     String token = prefs.getString("TOKEN", null);
@@ -56,7 +48,18 @@ public class MainActivity extends AppCompatActivity {
       getInfoUser();
 
     }
-
+    else
+    {
+      Toast.makeText(this, "Token bị rỗng. //Main Activity", Toast.LENGTH_SHORT).show();
+    }
+    // Passing each menu ID as a set of Ids because each
+    // menu should be considered as top level destinations.
+    AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+            R.id.navigation_home, R.id.navigation_camera, R.id.navigation_search, R.id.navigation_profile, R.id.navigation_history)
+            .build();
+    NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+    //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+    NavigationUI.setupWithNavController(binding.navView, navController);
   }
   private void getInfoUser()
   {
@@ -78,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
           editor.putString("createAt", userInfo.getCreatedAt());
           editor.apply();
         }
-
       }
 
       @Override

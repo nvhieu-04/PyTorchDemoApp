@@ -21,6 +21,8 @@ import org.pytorch.demo.MainActivity;
 import org.pytorch.demo.R;
 import org.pytorch.demo.ui.login.ApiClient;
 
+import java.util.concurrent.TimeUnit;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -83,6 +85,7 @@ public class Register extends AppCompatActivity {
                                         SharedPreferences sharedPreferences = getSharedPreferences("myKey", MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("TOKEN", token);
+                                        editor.putLong("ExpiredDate", System.currentTimeMillis() + TimeUnit.HOURS.toMillis(46));
                                         editor.apply();
                                         //Toast.makeText(Register.this, token, Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(Register.this, MainActivity.class);

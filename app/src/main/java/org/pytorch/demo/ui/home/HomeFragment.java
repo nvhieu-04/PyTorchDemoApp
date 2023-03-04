@@ -8,10 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +28,7 @@ import org.pytorch.demo.ui.room.SeeAllRoom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 
@@ -38,6 +42,7 @@ public class HomeFragment extends Fragment {
     ArrayList<Plant> plants;
     TextView seeAllRoom,seeAllPlantNeedCare;
     Button addRoom;
+    ImageView search, scan;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -103,8 +108,10 @@ public class HomeFragment extends Fragment {
                     for (Plant plant : plantList) {
                         if(plant.getUserID().equals(id))
                         {
-                            plants.add(plant);
-
+                            if (!plant.getHealthStatus().equals("Healthy"))
+                            {
+                                plants.add(plant);
+                            }
                         }
                     }
                     plantsAdapter.notifyDataSetChanged();
@@ -122,14 +129,20 @@ public class HomeFragment extends Fragment {
         plantNeedCareList.setLayoutManager(linearLayoutManager1);
         plantNeedCareList.setAdapter(plantsAdapter);
         addRoom.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getContext(), AddNewRoom.class));
-                    }
-                }
+                v -> startActivity(new Intent(getContext(), AddNewRoom.class))
         );
+
         return root;
+    }
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        NavController navController = Navigation.findNavController(view);
+        binding.searchIcon.setOnClickListener(
+                v -> navController.navigate(R.id.action_navigation_home_to_navigation_search)
+        );
+        binding.addPlant.setOnClickListener(
+                v -> navController.navigate(R.id.action_navigation_home_to_navigation_camera)
+        );
     }
 
     @Override

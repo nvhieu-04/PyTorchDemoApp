@@ -6,83 +6,79 @@
     android:layout_height="match_parent"
     tools:context=".ui.room.AddNewRoom">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageView_avatarRoom"
+            android:layout_width="224dp"
+            android:layout_height="224dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="30dp"
+            android:visibility="visible"
+            tools:src="@drawable/cat" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Nhập tên phòng"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+        <EditText
+            android:id="@+id/editTextTextAddNameRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:hint="Nhập tên phòng bạn muốn thêm"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
 
-            <ImageView
-                android:id="@+id/imageView_avatarRoom"
-                android:layout_width="224dp"
-                android:layout_height="224dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="30dp"
-                android:visibility="visible"
-                tools:src="@drawable/cat" />
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Tầng"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="Nhập tên phòng"
-                android:textColor="@color/black"
-                android:textSize="22sp" />
+        <EditText
+            android:id="@+id/editTextTextAddNameRoomFloor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:hint="Nhập tầng bạn muốn thêm"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
 
-            <EditText
-                android:id="@+id/editTextTextAddNameRoom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:ems="10"
-                android:hint="Nhập tên phòng bạn muốn thêm"
-                android:inputType="textPersonName"
-                android:minHeight="48dp" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:text="Tầng"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/editTextTextAddNameRoomFloor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:ems="10"
-                android:hint="Nhập tầng bạn muốn thêm"
-                android:inputType="textPersonName"
-                android:minHeight="48dp" />
-
-            <Button
-                android:id="@+id/buttonAddNewRoom"
-                android:layout_width="160dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/border_shape"
-                android:backgroundTint="@color/top3"
-                android:text="THÊM" />
-        </LinearLayout>
-    </ScrollView>
+        <Button
+            android:id="@+id/buttonAddNewRoom"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_shape"
+            android:backgroundTint="@color/top3"
+            android:text="THÊM" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView11"
@@ -102,7 +98,7 @@
         android:id="@+id/imageView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

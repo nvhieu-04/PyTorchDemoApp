@@ -22,7 +22,7 @@
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <LinearLayout
-            android:layout_width="280dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"

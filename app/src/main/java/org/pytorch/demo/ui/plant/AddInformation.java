@@ -77,10 +77,10 @@ public class AddInformation extends AppCompatActivity {
         String namePlant1 = intent.getStringExtra("namePlant");
         String imagePlant1 = intent.getStringExtra("image");
         String imageUpdateDetail = intent.getStringExtra("imageDetail");
-        Toast.makeText(this, imagePlant1, Toast.LENGTH_SHORT).show();
         Boolean isUpdate = intent.getBooleanExtra("edit", false);
         if(imagePlant1 != null)
         {
+            Toast.makeText(this, imagePlant1, Toast.LENGTH_SHORT).show();
             String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
             File myDir = new File(root + "/Image_Disease");
             File fileImagesRoot = new File(myDir, imagePlant1);
@@ -191,7 +191,6 @@ public class AddInformation extends AppCompatActivity {
                 File myDir = new File(root + "/Image_Disease");
                 File fileImage = new File(myDir, imagePlant1);
                 file = new File(Uri.fromFile(fileImage).getPath());
-                Toast.makeText(this, "Địa chỉ ảnh:"+file, Toast.LENGTH_SHORT).show();
 
             }
             String nameFile = name + nameofRoom + id + ".jpg";
