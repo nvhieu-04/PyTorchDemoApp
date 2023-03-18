@@ -56,7 +56,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
   private static final String FORMAT_AVG_MS = "avg:%.0fms";
 
   private static final String FORMAT_FPS = "%.1fFPS";
-  public static final String SCORES_FORMAT = "%.2f";
+  public static final String SCORES_FORMAT = "%.2f%%";
 
   static class AnalysisResult {
 
@@ -139,7 +139,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
       final ResultRowView rowView = mResultRowViews[i];
       rowView.nameTextView.setText(result.topNClassNames[i]);
       rowView.scoreTextView.setText(String.format(Locale.US, SCORES_FORMAT,
-          result.topNScores[i]));
+          result.topNScores[i] * 10.f));
       rowView.setProgressState(false);
     }
 

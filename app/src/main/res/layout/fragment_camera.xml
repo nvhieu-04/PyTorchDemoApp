@@ -31,10 +31,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/list_content_margin"
+                android:layout_marginBottom="20dp"
                 android:elevation="1dp"
                 app:descriptionRes="@string/vision_card_qmobilenet_description"
                 app:imageRes="@drawable/ic_image_classification_s"
-                app:titleRes="@string/DeiT_title"/>
+                app:titleRes="@string/DeiT_title">
+
+            </org.pytorch.demo.ListCardView>
+
+            <org.pytorch.demo.ListCardView
+
+                android:id="@+id/vision_card_SimpleViT_click_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:elevation="1dp"
+                app:descriptionRes="@string/vision_card_qmobilenet_description"
+                app:imageRes="@drawable/ic_image_classification_s"
+                app:titleRes="@string/SimpleViT_title">
+
+            </org.pytorch.demo.ListCardView>
+
+            <org.pytorch.demo.ListCardView
+
+                android:id="@+id/vision_card_DeepViT_click_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="1dp"
+                app:descriptionRes="@string/vision_card_qmobilenet_description"
+                app:imageRes="@drawable/ic_image_classification_s"
+                app:titleRes="@string/DeepViT_title" />
 
         </LinearLayout>
     </ScrollView>

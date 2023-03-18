@@ -1,16 +1,10 @@
 package org.pytorch.demo.vision;
 
-import static androidx.fragment.app.FragmentManager.TAG;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.SystemClock;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.util.Size;
 import android.view.TextureView;
 import android.widget.Toast;
@@ -28,14 +22,9 @@ import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import org.pytorch.demo.BaseModuleActivity;
 import org.pytorch.demo.StatusBarUtils;
-
-import java.io.File;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public abstract class AbstractCameraXActivity<R> extends BaseModuleActivity {
   private static final int REQUEST_CODE_CAMERA_PERMISSION = 200;

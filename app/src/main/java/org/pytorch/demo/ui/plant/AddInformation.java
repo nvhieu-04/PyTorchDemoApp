@@ -3,6 +3,7 @@ package org.pytorch.demo.ui.plant;
 import static org.pytorch.demo.ui.plant.PlantDetail.API_URL;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -31,7 +33,9 @@ import org.pytorch.demo.models.PlantResponse;
 import org.pytorch.demo.ui.login.ApiClient;
 import org.pytorch.demo.vision.ImageClassificationActivity;
 
+import java.io.Console;
 import java.io.File;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -77,7 +81,7 @@ public class AddInformation extends AppCompatActivity {
         String namePlant1 = intent.getStringExtra("namePlant");
         String imagePlant1 = intent.getStringExtra("image");
         String imageUpdateDetail = intent.getStringExtra("imageDetail");
-        Boolean isUpdate = intent.getBooleanExtra("edit", false);
+        boolean isUpdate = intent.getBooleanExtra("edit", false);
         if(imagePlant1 != null)
         {
             Toast.makeText(this, imagePlant1, Toast.LENGTH_SHORT).show();
@@ -184,58 +188,108 @@ public class AddInformation extends AppCompatActivity {
                 Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 return;
             }
-            File file = new File(uri.getPath());
             if(imagePlant1 != null)
             {
+                ProgressDialog pd = new ProgressDialog(this);
+                pd.setTitle("Đang tải ảnh lên");
+                pd.setMessage("Vui lòng chờ....");
+                pd.setCancelable(true);
+                pd.setIndeterminate(true);
+                pd.show();
                 String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
                 File myDir = new File(root + "/Image_Disease");
-                File fileImage = new File(myDir, imagePlant1);
-                file = new File(Uri.fromFile(fileImage).getPath());
+                File fileImagesRoot = new File(myDir, imagePlant1);
+                imagePlant.setImageURI(Uri.fromFile(fileImagesRoot));
+                Log.d("file:", fileImagesRoot.getPath());
+                String nameFile = name + nameofRoom + id + ".jpg";
+                RequestBody requestFile =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), fileImagesRoot.getPath());
+                // MultipartBody.Part is used to send also the actual file name
+                MultipartBody.Part body =
+                        MultipartBody.Part.createFormData("image", nameFile, requestFile);
+                Call<ImageResultResponse> imageCallUpload = ApiClient.getUserService().uploadImage(body);
+                imageCallUpload.enqueue(new retrofit2.Callback<ImageResultResponse>() {
+                    @Override
+                    public void onResponse(Call<ImageResultResponse> call, retrofit2.Response<ImageResultResponse> response) {
+                        if (response.isSuccessful()) {
+                            ImageResultResponse responseBody = response.body();
+                            if (responseBody != null) {
 
-            }
-            String nameFile = name + nameofRoom + id + ".jpg";
-            RequestBody requestFile =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            // MultipartBody.Part is used to send also the actual file name
-            MultipartBody.Part body =
-                    MultipartBody.Part.createFormData("image", nameFile, requestFile);
-            Call<ImageResultResponse> imageCallUpload = ApiClient.getUserService().uploadImage(body);
-            imageCallUpload.enqueue(new retrofit2.Callback<ImageResultResponse>() {
-                @Override
-                public void onResponse(Call<ImageResultResponse> call, retrofit2.Response<ImageResultResponse> response) {
-                    if (response.isSuccessful()) {
-                        ImageResultResponse responseBody = response.body();
-                        if (responseBody != null) {
-                        }
-                    }
-                }
-                @Override
-                public void onFailure(Call<ImageResultResponse> call, Throwable t) {
-                    Toast.makeText(AddInformation.this, "Thêm ảnh thất bại", Toast.LENGTH_SHORT).show();
-                }
-            });
-            Call<PlantResponse> call = ApiClient.getUserService().createPlant(token, new PlantRequest(name, nameofRoom, status, id, nameFile));
-            call.enqueue(new retrofit2.Callback<PlantResponse>() {
-                @Override
-                public void onResponse(Call<PlantResponse> call, retrofit2.Response<PlantResponse> response) {
-                    if (response.isSuccessful()) {
-                        PlantResponse plantResponse = response.body();
-                        if (plantResponse != null) {
-                            if (plantResponse.getMessage().equals("Plant created")) {
-                                Toast.makeText(AddInformation.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(AddInformation.this, MainActivity.class);
-                                startActivity(intent);
                             }
                         }
                     }
-                }
+                    @Override
+                    public void onFailure(Call<ImageResultResponse> call, Throwable t) {
+                        Toast.makeText(AddInformation.this, "Thêm ảnh thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                pd.dismiss();
+                Call<PlantResponse> call = ApiClient.getUserService().createPlant(token,new PlantRequest(namePlant.getText().toString(), nameRoomPlant.getText().toString(), statusPlant.getText().toString(), id, nameFile));
+                call.enqueue(new retrofit2.Callback<PlantResponse>() {
+                    @Override
+                    public void onResponse(Call<PlantResponse> call, retrofit2.Response<PlantResponse> response) {
+                        if (response.isSuccessful()) {
+                            PlantResponse plantResponse = response.body();
+                            if (plantResponse != null) {
+                                if (plantResponse.getMessage().equals("Create plant")) {
+                                    Toast.makeText(AddInformation.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(AddInformation.this, MainActivity.class));
+                                }
+                            }
+                        }
+                    }
 
-                @Override
-                public void onFailure(Call<PlantResponse> call, Throwable t) {
-                    Toast.makeText(AddInformation.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
-                }
-            });
+                    @Override
+                    public void onFailure(Call<PlantResponse> call, Throwable t) {
+                        Toast.makeText(AddInformation.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
+            }
+            else {
+                File file = new File(uri.getPath());
+                Log.d("file:", file.getPath());
+                String nameFile = name + nameofRoom + id + ".jpg";
+                RequestBody requestFile =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                // MultipartBody.Part is used to send also the actual file name
+                MultipartBody.Part body =
+                        MultipartBody.Part.createFormData("image", nameFile, requestFile);
+                Call<ImageResultResponse> imageCallUpload = ApiClient.getUserService().uploadImage(body);
+                imageCallUpload.enqueue(new retrofit2.Callback<ImageResultResponse>() {
+                    @Override
+                    public void onResponse(Call<ImageResultResponse> call, retrofit2.Response<ImageResultResponse> response) {
+                        if (response.isSuccessful()) {
+                            ImageResultResponse responseBody = response.body();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ImageResultResponse> call, Throwable t) {
+                        Toast.makeText(AddInformation.this, "Thêm ảnh thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                Call<PlantResponse> call = ApiClient.getUserService().createPlant(token, new PlantRequest(name, nameofRoom, status, id, nameFile));
+                call.enqueue(new retrofit2.Callback<PlantResponse>() {
+                    @Override
+                    public void onResponse(Call<PlantResponse> call, retrofit2.Response<PlantResponse> response) {
+                        if (response.isSuccessful()) {
+                            PlantResponse plantResponse = response.body();
+                            if (plantResponse != null) {
+                                if (plantResponse.getMessage().equals("Plant created")) {
+                                    Toast.makeText(AddInformation.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(AddInformation.this, MainActivity.class);
+                                    startActivity(intent);
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PlantResponse> call, Throwable t) {
+                        Toast.makeText(AddInformation.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         });
         imagePlant.setOnClickListener(v -> {
             ImagePicker.with(this)

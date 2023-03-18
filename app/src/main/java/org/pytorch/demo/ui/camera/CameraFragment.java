@@ -46,7 +46,7 @@ import java.util.Objects;
 
 public class CameraFragment extends Fragment {
     private static final String API_URL = "http://104.238.151.188:3000/";
-    ListCardView levit128;
+    ListCardView levit128, deepvit, simplevit;
 
     public static CameraFragment newInstance() {
         return new CameraFragment();
@@ -62,62 +62,78 @@ public class CameraFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         levit128 = view.findViewById(R.id.vision_card_DeiT_click_area);
-
+        deepvit = view.findViewById(R.id.vision_card_DeepViT_click_area);
+        simplevit = view.findViewById(R.id.vision_card_SimpleViT_click_area);
         levit128.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                            //android 11
-                            ProgressDialog pd = new ProgressDialog(getActivity());
-                            pd.setTitle("Đang tải model");
-                            pd.setMessage("Vui lòng chờ....");
-                            pd.setCancelable(false);
-                            pd.setIndeterminate(true);
-                            pd.show();
-                            String fileName = "levit_128.pt";
-                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
-                            Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
-                            Constants.IMAGENET_CLASSES = new String[]{
-                                    "Gray_leaf_spot",
-                                    "Common_rust",
-                                    "Northern_Leaf_Blight",
-                                    "Healthy",
+                v -> {
+                    if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                        //android 11
+                        ProgressDialog pd = new ProgressDialog(getActivity());
+                        pd.setTitle("Đang tải model");
+                        pd.setMessage("Vui lòng chờ....");
+                        pd.setCancelable(false);
+                        pd.setIndeterminate(true);
+                        pd.show();
+                        String fileName = "levit_128.pt";
+                        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+                        Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
+                        Constants.IMAGENET_CLASSES = new String[]{
+                                "Gray_leaf_spot",
+                                "Common_rust",
+                                "Northern_Leaf_Blight",
+                                "Healthy",
+                        };
+                        if (file.exists()) {
+                            final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+                            intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, file);
+                            intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                                    InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                            pd.dismiss();
+                            startActivity(intent);
+                        } else {
+                            DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(API_URL + "levit_128.pt"));
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                            request.setTitle(fileName);
+                            request.setDescription("Downloading File");
+                            request.allowScanningByMediaScanner();
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                            request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "levit_128.pt");
+                            downloadManager.enqueue(request);
+                            BroadcastReceiver onComplete = new BroadcastReceiver() {
+                                public void onReceive(Context ctxt, Intent intent) {
+                                    final Intent intent1 = new Intent(getActivity(), ImageClassificationActivity.class);
+                                    intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, file);
+                                    intent1.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                                    pd.dismiss();
+                                    startActivity(intent1);
+                                }
                             };
-                            if (file.exists()) {
-                                final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-                                intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, file);
-                                intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
-                                        InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
-                                pd.dismiss();
-                                startActivity(intent);
-                            } else {
-                                DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
-                                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(API_URL + "levit_128.pt"));
-                                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-                                request.setTitle(fileName);
-                                request.setDescription("Downloading File");
-                                request.allowScanningByMediaScanner();
-                                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                                request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "levit_128.pt");
-                                downloadManager.enqueue(request);
-                                BroadcastReceiver onComplete = new BroadcastReceiver() {
-                                    public void onReceive(Context ctxt, Intent intent) {
-                                        final Intent intent1 = new Intent(getActivity(), ImageClassificationActivity.class);
-                                        intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, file);
-                                        intent1.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
-                                                InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
-                                        pd.dismiss();
-                                        startActivity(intent1);
-                                    }
-                                };
-                                getActivity().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+                            getActivity().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
-                            }
                         }
-
                     }
+
+                }
+        );
+        deepvit.setOnClickListener(
+                view12 -> {
+                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "DeepViT.pt");
+                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                    startActivity(intent);
+                }
+        );
+        simplevit.setOnClickListener(
+                view1 -> {
+                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "SimpleViT_256_mobile.pt");
+                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                    startActivity(intent);
                 }
         );
     }

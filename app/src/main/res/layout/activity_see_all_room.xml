@@ -63,27 +63,28 @@
                     android:id="@+id/recyclerViewSeeAllroom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp">
+                    android:layout_marginEnd="20dp">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <Button
                     android:id="@+id/button_add_newRoom"
                     android:layout_width="160dp"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/border_shape"
-                    android:backgroundTint="@color/top3"
-                    android:drawableStart="@drawable/icons8_add_24"
+                    android:backgroundTint="@color/colorGreenBG"
                     android:drawingCacheQuality="auto"
                     android:gravity="center"
-                    android:text="Thêm Phòng Mới" />
+                    android:text="Thêm Phòng Mới"
+                    android:textColor="@color/white"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

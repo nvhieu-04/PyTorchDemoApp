@@ -2,10 +2,11 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="460dp"
-    android:layout_height="128dp"
+    android:layout_width="320dp"
+    android:layout_height="100dp"
     android:layout_marginTop="10dp"
-    android:layout_marginBottom="5dp">
+    android:layout_marginBottom="5dp"
+    app:cardCornerRadius="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,12 +19,11 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/cat" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="160dp"
+            android:layout_width="170dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
@@ -31,11 +31,11 @@
                 android:id="@+id/roomNameInRoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="18dp"
                 android:text="Phòng Khách"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
                 android:id="@+id/countPlantInRoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="2 cây"
                 android:textAlignment="textStart"
                 android:textSize="18sp"
@@ -56,7 +56,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:layout_width="70dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -65,7 +65,7 @@
                 android:id="@+id/buttonEditNameRoom"
                 android:layout_width="20dp"
                 android:layout_height="25dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="15dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/icons8_edit_text_75___" />
 
@@ -73,7 +73,7 @@
                 android:id="@+id/buttonDeleteRoom"
                 android:layout_width="20dp"
                 android:layout_height="25dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="15dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/icons8_trash_can_96___" />
 

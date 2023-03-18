@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     Window window = getWindow();
     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-    window.setStatusBarColor(Color.parseColor("#DEEAD8"));
+    window.setStatusBarColor(Color.parseColor("#0D986A"));
     //get API store data user information in shared preferences
     SharedPreferences prefs = getSharedPreferences("myKey", Context.MODE_PRIVATE);
     String token = prefs.getString("TOKEN", null);
