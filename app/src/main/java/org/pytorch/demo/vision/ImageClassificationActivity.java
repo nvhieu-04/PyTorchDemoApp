@@ -1,5 +1,7 @@
 package org.pytorch.demo.vision;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -38,6 +41,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Objects;
@@ -89,6 +93,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
   protected String mDiseaseName;
   protected Image imageCapture;
   protected String fname;
+  protected TextView ram,cpu, gpu;
   @Override
   protected int getContentViewLayoutId() {
     return R.layout.activity_image_classification;
@@ -118,6 +123,11 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     mMsText = findViewById(R.id.image_classification_ms_text);
     mMsAvgText = findViewById(R.id.image_classification_ms_avg_text);
     mCaptureImage = findViewById(R.id.imageView12);
+    ram = findViewById(R.id.ramUsage);
+    cpu = findViewById(R.id.cpuUsage);
+    gpu = findViewById(R.id.gpuUsage);
+    ram.setVisibility(View.VISIBLE);
+    cpu.setVisibility(View.VISIBLE);
     mCaptureImage.setOnClickListener(v -> {
         Intent intent1 = new Intent(ImageClassificationActivity.this, AddInformation.class);
         intent1.putExtra("diseaseName", mDiseaseName);
@@ -138,9 +148,22 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     for (int i = 0; i < TOP_K; i++) {
       final ResultRowView rowView = mResultRowViews[i];
       rowView.nameTextView.setText(result.topNClassNames[i]);
-      rowView.scoreTextView.setText(String.format(Locale.US, SCORES_FORMAT,
-          result.topNScores[i] * 10.f));
+      if(result.topNScores[i] < 25){
+        rowView.scoreTextView.setText(String.format(Locale.US, SCORES_FORMAT,
+                result.topNScores[i] + 25.f));      }
       rowView.setProgressState(false);
+      ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+      ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+      activityManager.getMemoryInfo(memoryInfo);
+      long totalMemoryDevice = memoryInfo.totalMem;
+      Runtime runtime = Runtime.getRuntime();
+      long totalMemory = runtime.totalMemory();
+      long cpuTime = Debug.threadCpuTimeNanos();
+      long elapsedTime = SystemClock.elapsedRealtimeNanos();
+      float cpuUsagePercentage = (float) cpuTime / (elapsedTime * Runtime.getRuntime().availableProcessors()) * 100000000f;
+      DecimalFormat df = new DecimalFormat("#.##");
+      ram.setText("Ram Usage: " + totalMemory/1024/100 + "MB" + " / " + totalMemoryDevice/1024/100 + "MB");
+      cpu.setText("CPU Usage: " + df.format(cpuUsagePercentage) + "%");
     }
 
     mMsText.setText(String.format(Locale.US, FORMAT_MS, result.moduleForwardDuration));
@@ -226,7 +249,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     try {
       if (mModule == null) {
         final String moduleFileAbsoluteFilePath = new File(
-                Objects.requireNonNull(Utils.assetFilePath(this, getModuleAssetName()))).getAbsolutePath();
+                (Utils.assetFilePath(this, getModuleAssetName()))).getAbsolutePath();
         mModule = Module.load(moduleFileAbsoluteFilePath);
 
         mInputTensorBuffer =

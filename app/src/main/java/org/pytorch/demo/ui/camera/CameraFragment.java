@@ -86,7 +86,7 @@ public class CameraFragment extends Fragment {
                         };
                         if (file.exists()) {
                             final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-                            intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, file);
+                            intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_128.pt");
                             intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
                                     InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
                             pd.dismiss();
@@ -104,7 +104,7 @@ public class CameraFragment extends Fragment {
                             BroadcastReceiver onComplete = new BroadcastReceiver() {
                                 public void onReceive(Context ctxt, Intent intent) {
                                     final Intent intent1 = new Intent(getActivity(), ImageClassificationActivity.class);
-                                    intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, file);
+                                    intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_256.pt");
                                     intent1.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
                                             InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
                                     pd.dismiss();
@@ -118,19 +118,31 @@ public class CameraFragment extends Fragment {
 
                 }
         );
-        deepvit.setOnClickListener(
-                view12 -> {
+        simplevit.setOnClickListener(
+                view1 -> {
+                    Constants.IMAGENET_CLASSES = new String[]{
+                            "Gray_leaf_spot",
+                            "Common_rust",
+                            "Northern_Leaf_Blight",
+                            "Healthy",
+                    };
                     final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "DeepViT.pt");
+                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobile_simple.pt");
                     intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
                             InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
                     startActivity(intent);
                 }
         );
-        simplevit.setOnClickListener(
-                view1 -> {
+        deepvit.setOnClickListener(
+                view12 -> {
                     final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "SimpleViT_256_mobile.pt");
+                    Constants.IMAGENET_CLASSES = new String[]{
+                            "Gray_leaf_spot",
+                            "Common_rust",
+                            "Northern_Leaf_Blight",
+                            "Healthy",
+                    };
+                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobile_deep.pt");
                     intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
                             InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
                     startActivity(intent);

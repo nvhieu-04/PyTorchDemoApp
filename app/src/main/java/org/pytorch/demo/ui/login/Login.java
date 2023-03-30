@@ -68,7 +68,7 @@ public class Login extends AppCompatActivity {
                     ProgressDialog pd = new ProgressDialog(this);
                     pd.setTitle("Đang đăng nhập...");
                     pd.setMessage("Vui lòng chờ.");
-                    pd.setCancelable(false);
+                    pd.setCancelable(true);
                     pd.setIndeterminate(true);
                     pd.show();
                     LoginRequest loginRequest = new LoginRequest(email, password);
@@ -96,6 +96,10 @@ public class Login extends AppCompatActivity {
                                         Toast.makeText(Login.this, message, Toast.LENGTH_SHORT).show();
                                     }
                                 }
+                            }
+                            else {
+                                Toast.makeText(Login.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                                pd.dismiss();
                             }
                         }
                         @Override
