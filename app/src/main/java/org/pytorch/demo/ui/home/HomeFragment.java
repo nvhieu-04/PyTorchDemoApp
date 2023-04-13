@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
         addRoom.setOnClickListener(
                 v -> startActivity(new Intent(getContext(), AddNewRoom.class))
         );
-
+        // Wait for the view to be created
         return root;
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

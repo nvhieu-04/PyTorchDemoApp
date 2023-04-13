@@ -46,12 +46,18 @@ public class MainActivity extends AppCompatActivity {
     if(token != null)
     {
       getInfoUser();
-
     }
     else
     {
       Toast.makeText(this, "Token bị rỗng. //Main Activity", Toast.LENGTH_SHORT).show();
     }
+    //Wait for 1s to get data from API
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
     // Passing each menu ID as a set of Ids because each
     // menu should be considered as top level destinations.
     AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(

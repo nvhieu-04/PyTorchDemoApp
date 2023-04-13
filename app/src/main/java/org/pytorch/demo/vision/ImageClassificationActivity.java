@@ -127,7 +127,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     cpu = findViewById(R.id.cpuUsage);
     gpu = findViewById(R.id.gpuUsage);
     ram.setVisibility(View.VISIBLE);
-    cpu.setVisibility(View.VISIBLE);
+//    cpu.setVisibility(View.VISIBLE);
     mCaptureImage.setOnClickListener(v -> {
         Intent intent1 = new Intent(ImageClassificationActivity.this, AddInformation.class);
         intent1.putExtra("diseaseName", mDiseaseName);

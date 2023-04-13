@@ -100,6 +100,8 @@ public class Login extends AppCompatActivity {
                             else {
                                 Toast.makeText(Login.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
                                 pd.dismiss();
+                                login.setVisibility(android.view.View.VISIBLE);
+                                progressBar.setVisibility(android.view.View.INVISIBLE);
                             }
                         }
                         @Override
