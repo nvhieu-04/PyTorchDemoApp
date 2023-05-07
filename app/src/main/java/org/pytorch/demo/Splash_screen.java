@@ -45,8 +45,7 @@ public class Splash_screen extends AppCompatActivity {
                     SharedPreferences.Editor edit = user.edit();
                     edit.clear();
                     edit.apply();
-                    Toast.makeText(Splash_screen.this, "Đã hết phiên đăng nhập", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Splash_screen.this, Login.class));
+                    startActivity(new Intent(Splash_screen.this, WelcomeActivity.class));
                     finish();
                 }
             }

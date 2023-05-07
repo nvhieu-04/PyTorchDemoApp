@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
                     android:padding="8dp"
-                    android:text="Phòng của tôi"
+                    android:text="Vườn của tôi"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -130,7 +130,7 @@
                 android:backgroundTint="@color/colorGreenBG"
                 android:fontFamily="sans-serif-medium"
                 android:includeFontPadding="true"
-                android:text="THÊM PHÒNG MỚI"
+                android:text="TẠO VƯỜN MỚI"
                 android:textColor="@color/white"
                 tools:ignore="TouchTargetSizeCheck" />
 

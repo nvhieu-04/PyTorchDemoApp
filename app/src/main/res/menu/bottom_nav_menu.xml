@@ -11,7 +11,7 @@
         android:title="@string/title_search" />
     <item
         android:id="@+id/navigation_camera"
-        android:icon="@drawable/ic_baseline_camera_alt_24"
+        android:icon="@drawable/cat"
         android:title="@string/title_camera" />
     <item
         android:id="@+id/navigation_history"

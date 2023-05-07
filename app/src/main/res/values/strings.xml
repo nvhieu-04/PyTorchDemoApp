@@ -30,7 +30,7 @@
 
     <string name="DeiT_title">Image Classification \LeVit</string>
     <string name="DeepViT_title">Image Classification \DeepViT</string>
-    <string name="SimpleViT_title">Image Classification \Simple ViT</string>
+    <string name="SimpleViT_title">Image Classification \SimpleViT</string>
     <string name="nlp_card_lstm_title">Text Classification.\nLSTM model trained on Reddit comments dataset. </string>
     <string name="nlp_card_lstm_description">Predicts subreddit by given comment.\nInput is uint8 1xN shaped tensor, where N is the length of text\'s bytes representation in utf-8 encoding. Output classes are subreddits.</string>
     <string name="clear">Clear</string>
@@ -70,5 +70,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_history">Lịch Sử</string>
     <string name="MyRoom">PHÒNG CỦA TÔI</string>
+    <String name="CrossViT_title">Image Classification \CrossViT</String>
+    <String name="MobileViT_title">Image Classification \MobileViT</String>
 
 </resources>
