@@ -70,7 +70,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_history">Lịch Sử</string>
     <string name="MyRoom">PHÒNG CỦA TÔI</string>
-    <String name="CrossViT_title">Image Classification \CrossViT</String>
-    <String name="MobileViT_title">Image Classification \MobileViT</String>
+    <string name="CrossViT_title">Image Classification \CrossViT</string>
+    <string name="MobileViT_title">Image Classification \MobileViT</string>
 
 </resources>
