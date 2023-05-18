@@ -74,8 +74,8 @@ public class AddNewRoom extends AppCompatActivity {
         //
         addRoom.setOnClickListener(v -> {
             String name = nameRoom.getText().toString();
-            String floor = floorRoom.getText().toString();
-            if (name.isEmpty() || floor.isEmpty()) {
+            String floor = "update later";
+            if (name.isEmpty()) {
                 Toast.makeText(this, "Please enter name room", Toast.LENGTH_SHORT).show();
             } else {
                 File file = new File(uri.getPath());

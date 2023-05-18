@@ -69,7 +69,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_history">Lịch Sử</string>
-    <string name="MyRoom">PHÒNG CỦA TÔI</string>
+    <string name="MyRoom">VƯỜN CỦA TÔI</string>
     <string name="CrossViT_title">Image Classification \CrossViT</string>
     <string name="MobileViT_title">Image Classification \MobileViT</string>
 

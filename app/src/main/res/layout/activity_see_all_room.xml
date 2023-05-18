@@ -10,7 +10,7 @@
         android:id="@+id/textView10"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TẤT CẢ PHÒNG"
+        android:text="VƯỜN CÂY CỦA TÔI"
         android:textAlignment="center"
         android:textColor="#0D986A"
         android:textSize="22sp"
@@ -82,7 +82,7 @@
                     android:backgroundTint="@color/colorGreenBG"
                     android:drawingCacheQuality="auto"
                     android:gravity="center"
-                    android:text="Thêm Phòng Mới"
+                    android:text="THÊM VƯỜN CÂY"
                     android:textColor="@color/white"
                     tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>

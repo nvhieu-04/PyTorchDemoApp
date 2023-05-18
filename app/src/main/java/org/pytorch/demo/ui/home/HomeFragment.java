@@ -80,7 +80,14 @@ public class HomeFragment extends Fragment {
                             rooms.add(room);
                         }
                     }
-                    addRoom.setVisibility(View.GONE);
+                    if(rooms.size() > 0)
+                    {
+                        addRoom.setVisibility(View.GONE);
+                    }
+                    else
+                    {
+                        addRoom.setVisibility(View.VISIBLE);
+                    }
                     myRoomAdapter.notifyDataSetChanged();
                 }
             }

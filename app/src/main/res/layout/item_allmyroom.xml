@@ -31,7 +31,7 @@
                 android:id="@+id/roomNameInRoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="32dp"
                 android:text="Phòng Khách"
                 android:textAlignment="center"
                 android:textColor="@color/black"
@@ -49,6 +49,7 @@
                 android:text="2 cây"
                 android:textAlignment="textStart"
                 android:textSize="18sp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="@+id/roomNameInRoom"
                 app:layout_constraintStart_toStartOf="@+id/roomNameInRoom"
                 app:layout_constraintTop_toBottomOf="@+id/roomNameInRoom" />

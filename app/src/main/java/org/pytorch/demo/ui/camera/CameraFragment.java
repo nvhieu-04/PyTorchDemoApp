@@ -46,7 +46,7 @@ import java.util.Objects;
 
 public class CameraFragment extends Fragment {
     private static final String API_URL = "http://104.238.151.188:3000/";
-    ListCardView levit128, deepvit, simplevit;
+    ListCardView levit, deepvit, simplevit, mobilevit, crossvit;
 
     public static CameraFragment newInstance() {
         return new CameraFragment();
@@ -61,10 +61,12 @@ public class CameraFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        levit128 = view.findViewById(R.id.vision_card_DeiT_click_area);
+        levit = view.findViewById(R.id.vision_card_DeiT_click_area);
         deepvit = view.findViewById(R.id.vision_card_DeepViT_click_area);
         simplevit = view.findViewById(R.id.vision_card_SimpleViT_click_area);
-        levit128.setOnClickListener(
+        mobilevit = view.findViewById(R.id.vision_card_MobileViT_click_area);
+        crossvit = view.findViewById(R.id.vision_card_CrossViT_click_area);
+        levit.setOnClickListener(
                 v -> {
                     if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -142,7 +144,37 @@ public class CameraFragment extends Fragment {
                             "Northern_Leaf_Blight",
                             "Healthy",
                     };
+                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobile_deep.pt");
+                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                    startActivity(intent);
+                }
+        );
+        mobilevit.setOnClickListener(
+                view13 -> {
+                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+                    Constants.IMAGENET_CLASSES = new String[]{
+                            "Gray_leaf_spot",
+                            "Common_rust",
+                            "Northern_Leaf_Blight",
+                            "Healthy",
+                    };
                     intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobilevit_xs.pt");
+                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                    startActivity(intent);
+                }
+        );
+        crossvit.setOnClickListener(
+                view14 -> {
+                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+                    Constants.IMAGENET_CLASSES = new String[]{
+                            "Gray_leaf_spot",
+                            "Common_rust",
+                            "Northern_Leaf_Blight",
+                            "Healthy",
+                    };
+                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_256.pt");
                     intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
                             InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
                     startActivity(intent);
