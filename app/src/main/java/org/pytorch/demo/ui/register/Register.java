@@ -20,6 +20,7 @@ import android.widget.Toast;
 import org.pytorch.demo.MainActivity;
 import org.pytorch.demo.R;
 import org.pytorch.demo.ui.login.ApiClient;
+import org.pytorch.demo.ui.login.Login;
 
 import java.util.concurrent.TimeUnit;
 
@@ -94,6 +95,12 @@ public class Register extends AppCompatActivity {
                                         Toast.makeText(Register.this, message, Toast.LENGTH_SHORT).show();
                                     }
                                 }
+                            }
+                            else {
+                                    Toast.makeText(Register.this, "Đăng kí thất bại, vui lòng thử lại", Toast.LENGTH_SHORT).show();
+                                    pd.dismiss();
+                                    login.setVisibility(android.view.View.VISIBLE);
+                                    progressBar.setVisibility(android.view.View.INVISIBLE);
                             }
                         }
                         @Override

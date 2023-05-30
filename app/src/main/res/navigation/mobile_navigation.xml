@@ -35,11 +35,11 @@
             android:id="@+id/action_navigation_camera_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
-    <fragment
-        android:id="@+id/navigation_history"
-        android:name="org.pytorch.demo.ui.history.HistoryFragment"
-        android:label="@string/title_bookmark"
-        tools:layout="@layout/fragment_history" />
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_history"-->
+<!--        android:name="org.pytorch.demo.ui.history.HistoryFragment"-->
+<!--        android:label="@string/title_bookmark"-->
+<!--        tools:layout="@layout/fragment_history" />-->
     <fragment
         android:id="@+id/navigation_profile"
         android:name="org.pytorch.demo.ui.profile.ProfileFragment"

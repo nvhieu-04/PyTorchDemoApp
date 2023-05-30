@@ -13,10 +13,10 @@
         android:id="@+id/navigation_camera"
         android:icon="@drawable/ic_baseline_camera_alt_24"
         android:title="@string/title_camera" />
-    <item
-        android:id="@+id/navigation_history"
-        android:icon="@drawable/ic_baseline_history_24"
-        android:title="@string/title_history" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_history"-->
+<!--        android:icon="@drawable/ic_baseline_history_24"-->
+<!--        android:title="@string/title_history" />-->
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_baseline_person_24"

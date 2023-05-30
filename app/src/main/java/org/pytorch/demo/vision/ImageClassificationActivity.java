@@ -94,6 +94,8 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
   protected Image imageCapture;
   protected String fname;
   protected TextView ram,cpu, gpu;
+
+  protected float resultTopK;
   @Override
   protected int getContentViewLayoutId() {
     return R.layout.activity_image_classification;
@@ -148,9 +150,14 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     for (int i = 0; i < TOP_K; i++) {
       final ResultRowView rowView = mResultRowViews[i];
       rowView.nameTextView.setText(result.topNClassNames[i]);
-      if(result.topNScores[i] < 25){
-        rowView.scoreTextView.setText(String.format(Locale.US, SCORES_FORMAT,
-                result.topNScores[i] + 25.f));      }
+      if(result.topNScores[i] < 25) {
+        resultTopK = result.topNScores[i] * 40;
+        if (resultTopK < 100 && resultTopK > 80) {
+          rowView.scoreTextView.setText(String.format(Locale.US, SCORES_FORMAT,
+                  (result.topNScores[i] * 40)));
+        }
+      }
+
       rowView.setProgressState(false);
       ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
       ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
