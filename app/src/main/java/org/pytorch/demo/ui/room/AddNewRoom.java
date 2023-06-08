@@ -54,7 +54,7 @@ public class AddNewRoom extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_room);
         imageRoom = findViewById(R.id.imageView_avatarRoom);
-        imageRoom.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24);
+        imageRoom.setImageResource(R.drawable.icon_garden);
         nameRoom = findViewById(R.id.editTextTextAddNameRoom);
         addRoom = findViewById(R.id.buttonAddNewRoom);
         floorRoom = findViewById(R.id.editTextTextAddNameRoomFloor);
@@ -76,8 +76,12 @@ public class AddNewRoom extends AppCompatActivity {
             String name = nameRoom.getText().toString();
             String floor = "update later";
             if (name.isEmpty()) {
-                Toast.makeText(this, "Please enter name room", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Vui lòng điền tên vào ô trống", Toast.LENGTH_SHORT).show();
             } else {
+                if(uri == null){
+                    Toast.makeText(this, "Vui lòng thêm hình vào", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 File file = new File(uri.getPath());
                 String nameFile = name + floor + id + ".jpg";
                 // create RequestBody instance from file

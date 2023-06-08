@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/imageView_avatarRoom"
-            android:layout_width="224dp"
-            android:layout_height="224dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="30dp"
@@ -102,6 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="16dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_notifications_black_24dp" />

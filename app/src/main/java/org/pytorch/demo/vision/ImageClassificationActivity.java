@@ -150,12 +150,14 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     for (int i = 0; i < TOP_K; i++) {
       final ResultRowView rowView = mResultRowViews[i];
       rowView.nameTextView.setText(result.topNClassNames[i]);
-      if(result.topNScores[i] < 25) {
-        resultTopK = result.topNScores[i] * 40;
-        if (resultTopK < 100 && resultTopK > 80) {
-          rowView.scoreTextView.setText(String.format(Locale.US, SCORES_FORMAT,
-                  (result.topNScores[i] * 40)));
-        }
+      if (result.topNScores[i] * 75 >= 100)
+      {
+        rowView.scoreTextView.setText("100%");
+      }
+      else
+      {
+        rowView.scoreTextView.setText(String.format(Locale.US, SCORES_FORMAT,
+                (result.topNScores[i]) * 75 ));
       }
 
       rowView.setProgressState(false);
@@ -234,10 +236,11 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     if (!TextUtils.isEmpty(mModuleAssetName)) {
       return mModuleAssetName;
     }
+//    File sample = getIntent().getStringExtra(INTENT_MODULE_ASSET_NAME);
     final String moduleAssetNameFromIntent = getIntent().getStringExtra(INTENT_MODULE_ASSET_NAME);
     mModuleAssetName = !TextUtils.isEmpty(moduleAssetNameFromIntent)
         ? moduleAssetNameFromIntent
-        : "levit_128.pt";
+        : "";
 
     return mModuleAssetName;
   }
@@ -255,8 +258,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     }
     try {
       if (mModule == null) {
-        final String moduleFileAbsoluteFilePath = new File(
-                (Utils.assetFilePath(this, getModuleAssetName()))).getAbsolutePath();
+        final String moduleFileAbsoluteFilePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), getModuleAssetName()).getAbsolutePath();
         mModule = Module.load(moduleFileAbsoluteFilePath);
 
         mInputTensorBuffer =

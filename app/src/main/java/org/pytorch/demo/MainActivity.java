@@ -39,17 +39,13 @@ public class MainActivity extends AppCompatActivity {
     Window window = getWindow();
     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-    window.setStatusBarColor(Color.parseColor("#0D986A"));
+    window.setStatusBarColor(Color.parseColor("#C9E265"));
     //get API store data user information in shared preferences
     SharedPreferences prefs = getSharedPreferences("myKey", Context.MODE_PRIVATE);
     String token = prefs.getString("TOKEN", null);
     if(token != null)
     {
       getInfoUser();
-    }
-    else
-    {
-      Toast.makeText(this, "Token bị rỗng. //Main Activity", Toast.LENGTH_SHORT).show();
     }
     //Wait for 1s to get data from API
     try {

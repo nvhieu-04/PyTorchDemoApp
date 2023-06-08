@@ -70,14 +70,13 @@ public class CameraFragment extends Fragment {
                 v -> {
                     if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                        //android 11
                         ProgressDialog pd = new ProgressDialog(getActivity());
                         pd.setTitle("Đang tải model");
                         pd.setMessage("Vui lòng chờ....");
                         pd.setCancelable(false);
                         pd.setIndeterminate(true);
                         pd.show();
-                        String fileName = "levit_128.pt";
+                        String fileName = "levit_256.pt";
                         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
                         Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
                         Constants.IMAGENET_CLASSES = new String[]{
@@ -88,25 +87,25 @@ public class CameraFragment extends Fragment {
                         };
                         if (file.exists()) {
                             final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-                            intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_128.pt");
+                            intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, fileName);
                             intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
                                     InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
                             pd.dismiss();
                             startActivity(intent);
                         } else {
                             DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
-                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(API_URL + "levit_128.pt"));
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(API_URL + "levit_256_1.pt"));
                             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
                             request.setTitle(fileName);
                             request.setDescription("Downloading File");
                             request.allowScanningByMediaScanner();
                             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                            request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "levit_128.pt");
+                            request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "levit_256.pt");
                             downloadManager.enqueue(request);
                             BroadcastReceiver onComplete = new BroadcastReceiver() {
                                 public void onReceive(Context ctxt, Intent intent) {
                                     final Intent intent1 = new Intent(getActivity(), ImageClassificationActivity.class);
-                                    intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_256.pt");
+                                    intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, fileName);
                                     intent1.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
                                             InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
                                     pd.dismiss();
@@ -117,52 +116,206 @@ public class CameraFragment extends Fragment {
 
                         }
                     }
+//                    Constants.IMAGENET_CLASSES = new String[]{
+//                            "Gray_leaf_spot",
+//                            "Common_rust",
+//                            "Northern_Leaf_Blight",
+//                            "Healthy",
+//                    };
+//                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+//                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_256_1.pt");
+//                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+//                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+//                    startActivity(intent);
 
                 }
         );
         simplevit.setOnClickListener(
                 view1 -> {
-                    Constants.IMAGENET_CLASSES = new String[]{
-                            "Gray_leaf_spot",
-                            "Common_rust",
-                            "Northern_Leaf_Blight",
-                            "Healthy",
-                    };
-                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobile_simple.pt");
-                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
-                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
-                    startActivity(intent);
+                    if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                        ProgressDialog pd = new ProgressDialog(getActivity());
+                        pd.setTitle("Đang tải model");
+                        pd.setMessage("Vui lòng chờ....");
+                        pd.setCancelable(false);
+                        pd.setIndeterminate(true);
+                        pd.show();
+                        String fileName = "mobile_simple.pt";
+                        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+                        Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
+                        Constants.IMAGENET_CLASSES = new String[]{
+                                "Gray_leaf_spot",
+                                "Common_rust",
+                                "Northern_Leaf_Blight",
+                                "Healthy",
+                        };
+                        if (file.exists()) {
+                            final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+                            intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, fileName);
+                            intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                                    InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                            pd.dismiss();
+                            startActivity(intent);
+                        } else {
+                            DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(API_URL + "mobile_simple.pt"));
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                            request.setTitle(fileName);
+                            request.setDescription("Downloading File");
+                            request.allowScanningByMediaScanner();
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                            request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "mobile_simple.pt");
+                            downloadManager.enqueue(request);
+                            BroadcastReceiver onComplete = new BroadcastReceiver() {
+                                public void onReceive(Context ctxt, Intent intent) {
+                                    final Intent intent1 = new Intent(getActivity(), ImageClassificationActivity.class);
+                                    intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, fileName);
+                                    intent1.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                                    pd.dismiss();
+                                    startActivity(intent1);
+                                }
+                            };
+                            getActivity().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+                        }
+                    }
+//                    Constants.IMAGENET_CLASSES = new String[]{
+//                            "Gray_leaf_spot",
+//                            "Common_rust",
+//                            "Northern_Leaf_Blight",
+//                            "Healthy",
+//                    };
+//                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+//                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobile_simple.pt");
+//                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+//                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+//                    startActivity(intent);
                 }
         );
         deepvit.setOnClickListener(
                 view12 -> {
-                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-                    Constants.IMAGENET_CLASSES = new String[]{
-                            "Gray_leaf_spot",
-                            "Common_rust",
-                            "Northern_Leaf_Blight",
-                            "Healthy",
-                    };
-                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobile_deep.pt");
-                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
-                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
-                    startActivity(intent);
+                    if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                        ProgressDialog pd = new ProgressDialog(getActivity());
+                        pd.setTitle("Đang tải model");
+                        pd.setMessage("Vui lòng chờ....");
+                        pd.setCancelable(false);
+                        pd.setIndeterminate(true);
+                        pd.show();
+                        String fileName = "mobile_deep.pt";
+                        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+                        Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
+                        Constants.IMAGENET_CLASSES = new String[]{
+                                "Gray_leaf_spot",
+                                "Common_rust",
+                                "Northern_Leaf_Blight",
+                                "Healthy",
+                        };
+                        if (file.exists()) {
+                            final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+                            intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, fileName);
+                            intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                                    InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                            pd.dismiss();
+                            startActivity(intent);
+                        } else {
+                            DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(API_URL + "mobile_deep.pt"));
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                            request.setTitle(fileName);
+                            request.setDescription("Downloading File");
+                            request.allowScanningByMediaScanner();
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                            request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "mobile_deep.pt");
+                            downloadManager.enqueue(request);
+                            BroadcastReceiver onComplete = new BroadcastReceiver() {
+                                public void onReceive(Context ctxt, Intent intent) {
+                                    final Intent intent1 = new Intent(getActivity(), ImageClassificationActivity.class);
+                                    intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, fileName);
+                                    intent1.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                                    pd.dismiss();
+                                    startActivity(intent1);
+                                }
+                            };
+                            getActivity().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+                        }
+                    }
+//                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+//                    Constants.IMAGENET_CLASSES = new String[]{
+//                            "Gray_leaf_spot",
+//                            "Common_rust",
+//                            "Northern_Leaf_Blight",
+//                            "Healthy",
+//                    };
+//                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobile_deep.pt");
+//                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+//                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+//                    startActivity(intent);
                 }
         );
         mobilevit.setOnClickListener(
                 view13 -> {
-                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-                    Constants.IMAGENET_CLASSES = new String[]{
-                            "Gray_leaf_spot",
-                            "Common_rust",
-                            "Northern_Leaf_Blight",
-                            "Healthy",
-                    };
-                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobilevit_xs.pt");
-                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
-                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
-                    startActivity(intent);
+                    if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                        ProgressDialog pd = new ProgressDialog(getActivity());
+                        pd.setTitle("Đang tải model");
+                        pd.setMessage("Vui lòng chờ....");
+                        pd.setCancelable(false);
+                        pd.setIndeterminate(true);
+                        pd.show();
+                        String fileName = "mobilevit_xs.pt";
+                        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+                        Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
+                        Constants.IMAGENET_CLASSES = new String[]{
+                                "Gray_leaf_spot",
+                                "Common_rust",
+                                "Northern_Leaf_Blight",
+                                "Healthy",
+                        };
+                        if (file.exists()) {
+                            final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+                            intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, fileName);
+                            intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                                    InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                            pd.dismiss();
+                            startActivity(intent);
+                        } else {
+                            DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(API_URL + "mobilevit_xs.pt"));
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                            request.setTitle(fileName);
+                            request.setDescription("Downloading File");
+                            request.allowScanningByMediaScanner();
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                            request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "mobilevit_xs.pt");
+                            downloadManager.enqueue(request);
+                            BroadcastReceiver onComplete = new BroadcastReceiver() {
+                                public void onReceive(Context ctxt, Intent intent) {
+                                    final Intent intent1 = new Intent(getActivity(), ImageClassificationActivity.class);
+                                    intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, fileName);
+                                    intent1.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                                    pd.dismiss();
+                                    startActivity(intent1);
+                                }
+                            };
+                            getActivity().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+                        }
+                    }
+//                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+//                    Constants.IMAGENET_CLASSES = new String[]{
+//                            "Gray_leaf_spot",
+//                            "Common_rust",
+//                            "Northern_Leaf_Blight",
+//                            "Healthy",
+//                    };
+//                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobilevit_xs.pt");
+//                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+//                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+//                    startActivity(intent);
                 }
         );
         crossvit.setOnClickListener(

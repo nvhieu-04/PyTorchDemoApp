@@ -37,6 +37,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_notifications_black_24dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,7 +74,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border_shape"
-                android:backgroundTint="@color/colorGreenBG"
+                android:backgroundTint="#81C784"
                 android:text="Thêm Cây Mới"
                 android:textColor="@color/white" />
         </LinearLayout>

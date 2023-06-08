@@ -23,11 +23,11 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginLeft="12dp"
+                android:layout_width="350dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:src="@drawable/logohomescreen" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo_home_screen" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -43,6 +43,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_weight="1"
                     android:src="@drawable/scan"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -54,6 +55,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_weight="1"
                     android:src="@drawable/ic_baseline_search_24"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/addPlant"
                     app:layout_constraintEnd_toStartOf="@+id/addPlant"
                     app:layout_constraintTop_toTopOf="@+id/addPlant" />
@@ -117,7 +119,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/myRoom"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -127,7 +129,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:background="@drawable/border_shape"
-                android:backgroundTint="@color/colorGreenBG"
+                android:backgroundTint="#81C784"
                 android:fontFamily="sans-serif-medium"
                 android:includeFontPadding="true"
                 android:text="TẠO VƯỜN MỚI"
@@ -151,21 +153,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/seeAllPlantNeedCare"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:fontFamily="sans-serif"
-                    android:text="Xem tất cả"
-                    android:textColor="#61AF2B"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView3" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

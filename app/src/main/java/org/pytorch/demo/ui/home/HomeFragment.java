@@ -1,5 +1,6 @@
 package org.pytorch.demo.ui.home;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,7 +49,6 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         seeAllRoom = binding.seeAllPlantInRoom;
-        seeAllPlantNeedCare = binding.seeAllPlantNeedCare;
         addRoom = binding.buttonaAddnewroomHome;
         //
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("myKey", Context.MODE_PRIVATE);

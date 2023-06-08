@@ -82,6 +82,16 @@ public class AddInformation extends AppCompatActivity {
         String imagePlant1 = intent.getStringExtra("image");
         String imageUpdateDetail = intent.getStringExtra("imageDetail");
         boolean isUpdate = intent.getBooleanExtra("edit", false);
+        if(nameRoom == null || nameDisease == null || namePlant1 == null || idPlant == null)
+        {
+            Toast.makeText(this, "Vui lòng điền thông tin", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(uri == null)
+        {
+            Toast.makeText(this, "Vui lòng chọn ảnh", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(imagePlant1 != null)
         {
             Toast.makeText(this, imagePlant1, Toast.LENGTH_SHORT).show();
