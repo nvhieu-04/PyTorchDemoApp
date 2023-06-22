@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.pytorch.demo.R;
 import org.pytorch.demo.models.ImageDeleteRequest;
@@ -64,6 +65,7 @@ public class ListMyRoomAdapter extends RecyclerView.Adapter<ListMyRoomAdapter.My
                 .centerCrop()
                 .transform(new RoundedCorners(20))
                 .transition(com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade(500))
+                .apply(new RequestOptions().override(100, 100))
                 .placeholder(R.drawable.no_image_placeholder_svg)
                 .into(holder.imageRoom);
         holder.countPlant.setText("Tầng: "+room.getFloor());

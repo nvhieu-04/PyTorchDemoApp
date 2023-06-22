@@ -1,6 +1,5 @@
 package org.pytorch.demo.ui.home;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,7 +28,6 @@ import org.pytorch.demo.ui.room.SeeAllRoom;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 
@@ -99,7 +97,7 @@ public class HomeFragment extends Fragment {
         });
         //
         myRoomAdapter = new MyRoomAdapter(rooms, this.getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         roomList.setLayoutManager(linearLayoutManager);
         roomList.setAdapter(myRoomAdapter);
         //
@@ -144,12 +142,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         NavController navController = Navigation.findNavController(view);
-        binding.searchIcon.setOnClickListener(
-                v -> navController.navigate(R.id.action_navigation_home_to_navigation_search)
-        );
-        binding.addPlant.setOnClickListener(
-                v -> navController.navigate(R.id.action_navigation_home_to_navigation_camera)
-        );
     }
 
     @Override

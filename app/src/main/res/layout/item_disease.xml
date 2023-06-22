@@ -9,8 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:background="#F4F8F2"
         android:orientation="horizontal">
 
@@ -18,8 +16,8 @@
             android:id="@+id/imageDisease"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.001"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout

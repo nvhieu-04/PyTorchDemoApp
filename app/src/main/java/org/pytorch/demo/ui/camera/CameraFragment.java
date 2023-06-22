@@ -116,18 +116,6 @@ public class CameraFragment extends Fragment {
 
                         }
                     }
-//                    Constants.IMAGENET_CLASSES = new String[]{
-//                            "Gray_leaf_spot",
-//                            "Common_rust",
-//                            "Northern_Leaf_Blight",
-//                            "Healthy",
-//                    };
-//                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-//                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_256_1.pt");
-//                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
-//                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
-//                    startActivity(intent);
-
                 }
         );
         simplevit.setOnClickListener(
@@ -180,17 +168,6 @@ public class CameraFragment extends Fragment {
 
                         }
                     }
-//                    Constants.IMAGENET_CLASSES = new String[]{
-//                            "Gray_leaf_spot",
-//                            "Common_rust",
-//                            "Northern_Leaf_Blight",
-//                            "Healthy",
-//                    };
-//                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-//                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobile_simple.pt");
-//                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
-//                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
-//                    startActivity(intent);
                 }
         );
         deepvit.setOnClickListener(
@@ -242,17 +219,6 @@ public class CameraFragment extends Fragment {
                             getActivity().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
                         }
                     }
-//                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-//                    Constants.IMAGENET_CLASSES = new String[]{
-//                            "Gray_leaf_spot",
-//                            "Common_rust",
-//                            "Northern_Leaf_Blight",
-//                            "Healthy",
-//                    };
-//                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobile_deep.pt");
-//                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
-//                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
-//                    startActivity(intent);
                 }
         );
         mobilevit.setOnClickListener(
@@ -305,17 +271,6 @@ public class CameraFragment extends Fragment {
 
                         }
                     }
-//                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-//                    Constants.IMAGENET_CLASSES = new String[]{
-//                            "Gray_leaf_spot",
-//                            "Common_rust",
-//                            "Northern_Leaf_Blight",
-//                            "Healthy",
-//                    };
-//                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobilevit_xs.pt");
-//                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
-//                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
-//                    startActivity(intent);
                 }
         );
         crossvit.setOnClickListener(

@@ -260,7 +260,6 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
       if (mModule == null) {
         final String moduleFileAbsoluteFilePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), getModuleAssetName()).getAbsolutePath();
         mModule = Module.load(moduleFileAbsoluteFilePath);
-
         mInputTensorBuffer =
             Tensor.allocateFloatBuffer(3 * INPUT_TENSOR_WIDTH * INPUT_TENSOR_HEIGHT);
         mInputTensor = Tensor.fromBlob(mInputTensorBuffer, new long[]{1, 3, INPUT_TENSOR_HEIGHT, INPUT_TENSOR_WIDTH});

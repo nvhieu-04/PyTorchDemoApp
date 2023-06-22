@@ -1,6 +1,7 @@
 package org.pytorch.demo.ui.plant;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -129,6 +130,13 @@ public class PlantDetail extends AppCompatActivity {
                     intent.putExtra("edit", true);
                     startActivity(intent);
                 }
+        );
+        healthyStatus.setOnClickListener(
+            v -> {
+                Dialog dialog = new Dialog(this);
+                dialog.setContentView(R.layout.dialog_custom_detail_disease);
+                dialog.show();
+            }
         );
     }
 

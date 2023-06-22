@@ -9,22 +9,11 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:elevation="1dp"
-        android:src="@drawable/ic_baseline_notifications_24_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#C9E265"
+        android:background="#DDFFBB"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -64,7 +53,7 @@
                     android:fontFamily="sans-serif"
                     android:text="Hi @username!"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="22sp"
                     android:textStyle="normal"
                     app:layout_constraintBottom_toBottomOf="parent"

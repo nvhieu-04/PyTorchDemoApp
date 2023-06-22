@@ -82,18 +82,13 @@ public class AddInformation extends AppCompatActivity {
         String imagePlant1 = intent.getStringExtra("image");
         String imageUpdateDetail = intent.getStringExtra("imageDetail");
         boolean isUpdate = intent.getBooleanExtra("edit", false);
-        if(nameRoom == null || nameDisease == null || namePlant1 == null || idPlant == null)
-        {
-            Toast.makeText(this, "Vui lòng điền thông tin", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(uri == null)
-        {
-            Toast.makeText(this, "Vui lòng chọn ảnh", Toast.LENGTH_SHORT).show();
-            return;
-        }
         if(imagePlant1 != null)
         {
+            if(nameRoom == null || nameDisease == null || namePlant1 == null || idPlant == null)
+            {
+                Toast.makeText(this, "Vui lòng điền thông tin", Toast.LENGTH_SHORT).show();
+                return;
+            }
             Toast.makeText(this, imagePlant1, Toast.LENGTH_SHORT).show();
             String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
             File myDir = new File(root + "/Image_Disease");
@@ -188,7 +183,7 @@ public class AddInformation extends AppCompatActivity {
         statusPlant.setOnClickListener(v -> {
             Intent intent1 = new Intent(AddInformation.this, ImageClassificationActivity.class);
             intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME,
-                    "levit_128.ptl");
+                    "levit_256.pt");
             intent1.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
                     InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
             intent1.putExtra("nameRoom", nameRoomPlant.getText().toString());

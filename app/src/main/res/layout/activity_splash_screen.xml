@@ -17,4 +17,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/splash_screen" />
+
+    <ProgressBar
+        android:id="@+id/progressBarSplashScreen"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="240dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="580dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/splashScreen" />
 </androidx.constraintlayout.widget.ConstraintLayout>

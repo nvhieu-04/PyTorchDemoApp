@@ -16,52 +16,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="Plant Disease Identifier"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorPrimary"
+            android:textDirection="locale"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/shapebgsearch"
+            android:hint="@string/search_diesease"
+            app:iconifiedByDefault="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:queryBackground="@null">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="350dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/logo_home_screen" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:id="@+id/addPlant"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/scan"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/searchIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_baseline_search_24"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/addPlant"
-                    app:layout_constraintEnd_toStartOf="@+id/addPlant"
-                    app:layout_constraintTop_toTopOf="@+id/addPlant" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
+        </androidx.appcompat.widget.SearchView>
 
     </LinearLayout>
 
@@ -69,6 +54,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +105,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/myRoom"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="132dp">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -159,9 +145,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/needCare"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
     </ScrollView>

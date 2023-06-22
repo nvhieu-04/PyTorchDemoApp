@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:background="#DDFFBB"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark"
     tools:context=".ui.camera.CameraFragment">
 
     <ScrollView
@@ -81,7 +81,7 @@
                 android:elevation="1dp"
                 app:descriptionRes="@string/vision_card_qmobilenet_description"
                 app:imageRes="@drawable/ic_image_classification_s"
-                app:titleRes="@string/CrossViT_title"/>
+                app:titleRes="@string/CrossViT_title" />
 
         </LinearLayout>
     </ScrollView>

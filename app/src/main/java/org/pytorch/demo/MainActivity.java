@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     Window window = getWindow();
     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-    window.setStatusBarColor(Color.parseColor("#C9E265"));
+    window.setStatusBarColor(Color.parseColor("#DDFFBB"));
     //get API store data user information in shared preferences
     SharedPreferences prefs = getSharedPreferences("myKey", Context.MODE_PRIVATE);
     String token = prefs.getString("TOKEN", null);
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
     //Wait for 1s to get data from API
     try {
-      Thread.sleep(1000);
+      Thread.sleep(1500);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.pytorch.demo.R;
 import org.pytorch.demo.models.ImageDeleteRequest;
@@ -62,6 +63,7 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHold
                 .centerCrop()
                 .transform((new RoundedCorners(15)))
                 .transition(com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade())
+                .apply(new RequestOptions().override(100, 100))
                 .placeholder(R.drawable.no_image_placeholder_svg)
                 .into(holder.imagePlant);
         holder.nameRoom.setText(plant.getNameRoom());

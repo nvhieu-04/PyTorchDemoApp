@@ -2,10 +2,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="320dp"
-    android:layout_height="100dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="128dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
     app:cardCornerRadius="16dp">
 
     <LinearLayout
@@ -18,7 +18,8 @@
             android:id="@+id/imageViewInRoom"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/cat" />
 
@@ -31,7 +32,7 @@
                 android:id="@+id/roomNameInRoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="44dp"
                 android:text="Phòng Khách"
                 android:textAlignment="center"
                 android:textColor="@color/black"
