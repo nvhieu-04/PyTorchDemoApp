@@ -41,7 +41,7 @@
 
             <TextView
                 android:id="@+id/namePlant_Detail"
-                android:layout_width="480dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
@@ -82,33 +82,35 @@
                 android:singleLine="true"
                 android:text="Trạng thái"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textColorHint="#F06292"
+                android:textSize="18sp"
+                android:textStyle="italic" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/updateStatus_Detail"
-                    android:layout_width="120dp"
+                    android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="28dp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/border_shape"
                     android:backgroundTint="@color/top3"
                     android:text="Cập nhật thông tin" />
 
                 <Button
                     android:id="@+id/deletePlant_Detail"
-                    android:layout_width="120dp"
+                    android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginBottom="24dp"
                     android:background="@drawable/border_shape"
                     android:backgroundTint="@color/top3"

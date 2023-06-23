@@ -27,6 +27,10 @@ import org.pytorch.demo.models.PlantResponse;
 import org.pytorch.demo.ui.login.ApiClient;
 import org.pytorch.demo.ui.plant.PlantDetail;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -66,16 +70,26 @@ public class PlantsAdapter extends RecyclerView.Adapter<PlantsAdapter.MyViewHold
                 .apply(new RequestOptions().override(100, 100))
                 .placeholder(R.drawable.no_image_placeholder_svg)
                 .into(holder.imagePlant);
-        holder.nameRoom.setText(plant.getNameRoom());
-        holder.healthyStatus.setText("Sức khỏe: "+plant.getHealthStatus());
-        holder.age.setText("Ngày tạo: "+plant.getCreatedAt().substring(0,10)+" ngày");
+        holder.nameRoom.setText("Thuộc vườn cây: " + plant.getNameRoom());
+        holder.healthyStatus.setText("Tình trạng: " + plant.getHealthStatus());
+//        Convert date
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = null;
+        try {
+            date = inputFormat.parse(plant.getCreatedAt().substring(0,10));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        String outputDateStr = outputFormat.format(date);
+        holder.age.setText("Ngày tạo: " + outputDateStr);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PlantDetail.class);
                 intent.putExtra("name",plant.getNamePlant());
                 intent.putExtra("room",plant.getNameRoom());
-                intent.putExtra("age",plant.getCreatedAt());
+                intent.putExtra("age",outputDateStr);
                 intent.putExtra("health",plant.getHealthStatus());
                 intent.putExtra("id",plant.get_id());
                 intent.putExtra("image",plant.getImagePlant());

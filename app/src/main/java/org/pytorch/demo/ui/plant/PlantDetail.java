@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -19,10 +20,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 
+import org.pytorch.demo.Constants;
 import org.pytorch.demo.MainActivity;
 import org.pytorch.demo.R;
 import org.pytorch.demo.models.PlantResponse;
 import org.pytorch.demo.ui.login.ApiClient;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 
@@ -60,14 +64,14 @@ public class PlantDetail extends AppCompatActivity {
         String idPlant = i.getStringExtra("id");
         String image = i.getStringExtra("image");
         namePlant.setText(name);
-        nameRoom.setText(room);
-        age.setText(agePlant);
-        healthyStatus.setText(status);
+        nameRoom.setText("Thuộc vườn cây: " + room);
+        age.setText("Ngày tạo: " + agePlant);
+        healthyStatus.setText("Tình trạng sức khoẻ: " + status);
         Glide
                 .with(this)
                 .load(API_URL+image)
                 .centerCrop()
-                .placeholder(R.drawable.bg_error_dialog)
+                .placeholder(R.drawable.no_image_placeholder_svg)
                 .into(imagePlant);
 
         back.setOnClickListener(
@@ -135,9 +139,35 @@ public class PlantDetail extends AppCompatActivity {
             v -> {
                 Dialog dialog = new Dialog(this);
                 dialog.setContentView(R.layout.dialog_custom_detail_disease);
+                TextView nameDisease = dialog.findViewById(R.id.textView7);
+                TextView description = dialog.findViewById(R.id.textView13);
+                TextView copyRight = dialog.findViewById(R.id.textView18);
+                ImageView imageDisease = dialog.findViewById(R.id.imageView11);
+                copyRight.setText("Nguồn: \"Một số sâu bệnh hại trên cây ngô và biện pháp phòng trừ,\" HPSTIC, 2019. [Online]. Available: http://hpstic.vn:96/tin-chi-tiet/Mot-so-sau-benh-hai-tren-cay-ngo-va-bien-phap-phong-tru-1387.html. [Accessed: Jun. 22, 2023].");
+                nameDisease.setText(status);
+                if(Objects.equals(status, "Bệnh đốm lá xám"))
+                {
+                    description.setText(Html.fromHtml(Constants.dom_la_xam));
+                    imageDisease.setImageResource(R.drawable.benhdomlanho);
+                }
+                else if (Objects.equals(status, "Bệnh gỉ sắt"))
+                {
+                    description.setText(Html.fromHtml(Constants.common_rust));
+                    imageDisease.setImageResource(R.drawable.gisat);
+                }
+                else if (Objects.equals(status, "Bệnh cháy lá"))
+                {
+                    description.setText(Html.fromHtml(Constants.chay_la));
+                    imageDisease.setImageResource(R.drawable.chayla);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Không có thông tin về bệnh này", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 dialog.show();
             }
         );
+
     }
 
 }

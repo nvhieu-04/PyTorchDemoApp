@@ -40,6 +40,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/shapebgsearch"
             android:hint="@string/search_diesease"
+            android:visibility="gone"
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

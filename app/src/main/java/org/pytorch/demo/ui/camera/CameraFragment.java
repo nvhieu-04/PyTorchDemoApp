@@ -80,10 +80,10 @@ public class CameraFragment extends Fragment {
                         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
                         Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
                         Constants.IMAGENET_CLASSES = new String[]{
-                                "Gray_leaf_spot",
-                                "Common_rust",
-                                "Northern_Leaf_Blight",
-                                "Healthy",
+                                "Bệnh đốm lá xám",
+                                "Bệnh gỉ sắt",
+                                "Bệnh cháy lá",
+                                "Cây khỏe mạnh",
                         };
                         if (file.exists()) {
                             final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
@@ -132,10 +132,10 @@ public class CameraFragment extends Fragment {
                         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
                         Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
                         Constants.IMAGENET_CLASSES = new String[]{
-                                "Gray_leaf_spot",
-                                "Common_rust",
-                                "Northern_Leaf_Blight",
-                                "Healthy",
+                                "Bệnh đốm lá xám",
+                                "Bệnh gỉ sắt",
+                                "Bệnh cháy lá",
+                                "Cây khỏe mạnh",
                         };
                         if (file.exists()) {
                             final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
@@ -184,10 +184,10 @@ public class CameraFragment extends Fragment {
                         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
                         Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
                         Constants.IMAGENET_CLASSES = new String[]{
-                                "Gray_leaf_spot",
-                                "Common_rust",
-                                "Northern_Leaf_Blight",
-                                "Healthy",
+                                "Bệnh đốm lá xám",
+                                "Bệnh gỉ sắt",
+                                "Bệnh cháy lá",
+                                "Cây khỏe mạnh",
                         };
                         if (file.exists()) {
                             final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
@@ -235,10 +235,10 @@ public class CameraFragment extends Fragment {
                         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
                         Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
                         Constants.IMAGENET_CLASSES = new String[]{
-                                "Gray_leaf_spot",
-                                "Common_rust",
-                                "Northern_Leaf_Blight",
-                                "Healthy",
+                                "Bệnh đốm lá xám",
+                                "Bệnh gỉ sắt",
+                                "Bệnh cháy lá",
+                                "Cây khỏe mạnh",
                         };
                         if (file.exists()) {
                             final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
@@ -277,10 +277,10 @@ public class CameraFragment extends Fragment {
                 view14 -> {
                     final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
                     Constants.IMAGENET_CLASSES = new String[]{
-                            "Gray_leaf_spot",
-                            "Common_rust",
-                            "Northern_Leaf_Blight",
-                            "Healthy",
+                            "Bệnh đốm lá xám",
+                            "Bệnh gỉ sắt",
+                            "Bệnh cháy lá",
+                            "Cây khỏe mạnh",
                     };
                     intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_256.pt");
                     intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,

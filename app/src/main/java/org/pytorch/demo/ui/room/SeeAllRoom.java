@@ -49,7 +49,7 @@ public class SeeAllRoom extends AppCompatActivity {
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(Color.parseColor("#DEEAD8"));
+        window.setStatusBarColor(Color.parseColor("#DDFFBB"));
         btnAddNewRoom = findViewById(R.id.button_add_newRoom);
         btnAddNewRoom.setOnClickListener(v -> {
             startActivity(new Intent(SeeAllRoom.this, AddNewRoom.class));

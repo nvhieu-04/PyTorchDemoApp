@@ -2,7 +2,55 @@ package org.pytorch.demo;
 
 public class Constants {
   public static final String TAG = "PyTorchDemo";
-
+  public static final String common_rust = "<p><b>1.1. Triệu chứng</b></p>" +
+          "<ul>" +
+          "<li>Trên lá xuất hiện những chấm nhỏ màu nâu nhạt sau đó chuyển sang nâu đậm. Vết bệnh hơi nổi gờ, nhiều vết bệnh liên kết làm cho lá ngô có chiều hướng co lại dày lên. Bệnh nặng trên vết bệnh có 1 khối bột màu nâu đỏ hoặc vàng gạch non.</li>" +
+          "<li>Bệnh thường xuất hiện trong giai đoạn ngô trỗ cờ</li>" +
+          "</ul>" +
+          "<p><b>1.2. Nguyên nhân, điều kiện phát sinh, phát triển của bệnh</b></p>" +
+          "<ul>" +
+          "<li>Bệnh gỉ sắt do nấm Puccinia sorghi Schw. gây ra.</li>" +
+          "<li>Bào tử nấm tồn tại trên tàn dư cây bệnh, trên hạt tiếp tục lây nhiễm cho vụ sau. Bệnh phát triển mạnh trong điều kiện thời tiết mát mẻ, ẩm độ cao hoặc có mưa. Các giống bắp địa phương và các giống bắp lai đều bị bệnh.</li>" +
+          "</ul>" +
+          "<p><b>1.3. Biện pháp phòng trừ</b></p>" +
+          "<ul>" +
+          "<li>Sau thu hoạch dọn sạch tàn dư cây bệnh đem tiêu hủy.</li>" +
+          "<li>Xử lý đất bằng cách ngâm hoặc phơi ải.</li>" +
+          "<li>Chăm sóc cây khỏe để tăng sức chống chịu bệnh của cây.</li>" +
+          "<li>Khi bệnh xuất hiện có thể phun lên cây bằng thuốc: Azoxystrobin + Difenoconazole (Amistar top 325SC);  Propineb (Antracol 70WP).</li>" +
+          "</ul>";
+  public static final String chay_la = "<p><b>1.1. Triệu chứng</b></p>" +
+          "<ul>" +
+          "<li>Bệnh cháy lá lớn (Helminthosporium turcicum Pas ): Vết bệnh lúc đầu xuất hiện trên lá những vệt nhỏ màu nâu nhạt sau lớn dần tạo nên hình thoi màu nâu, nhiều vết bệnh liên kết với nhau làm lá bị cháy và rách, bệnh xuất hiện lá dưới trước rồi lan lên lá trên, nếu gặp trời ẩm ướt trên vết bệnh phía mặt dưới của lá xuất hiện lớp nấm mốc màu đen.</li>" +
+          "<li>Bệnh cháy lá nhỏ (Helminthosporium maydis Nisikado ): Vết bệnh xuất hiện những chấm nhỏ màu nâu vàng sau lớn dần tạo thành hình bầu dục hoặc hình tròn, ở giữa màu hơi xám trắng, tiếp theo là màu đỏ, đến màu vàng ở ngoài cùng, nhiều vết bệnh kết hợp nhau làm lá khô cháy, bệnh xuất hiện ở cả bẹ lá.</li>" +
+          "</ul>" +
+          "<p><b>1.2. Nguyên nhân, điều kiện phát sinh, phát triển của bệnh</b></p>" +
+          "<ul>" +
+          "<li>Bệnh cháy lá lớn do nấm Helminthosporium turcicum Pas gây ra</li>" +
+          "<li>Bệnh cháy lá nhỏ do nấm  Helminthosporium maydis Nisikado gây ra.</li>" +
+          "<li>Nấm gây bệnh cháy lá nhỏ thường phát triển ở điều kiện thời tiết nóng ẩm, cây sinh trưởng kém. Nấm gây bệnh cháy lá lớn thường phát triển khi ẩm độ cao và nhiệt độ tương đối thấp.</li>" +
+          "<li>Bệnh lây lan bằng bào tử, xâm nhập vào cây qua vết thương xây xát. Bào tử nấm tồn tại ở tàn dư cây bệnh, hạt giống, trong đất.</li>" +
+          "<li>Nơi thâm canh không tốt, đất xấu dễ đóng váng bệnh phát triển.</li>" +
+          "</ul>" +
+          "<p><b>1.3. Biện pháp phòng trừ</b></p>" +
+          "<ul>" +
+          "<li>Chủ yếu bằng biện pháp thâm canh đúng kỹ thuật để cây ngô sinh trưởng, phát triển tốt hạn chế được sự gây hại của nấm bệnh.</li>" +
+          "<li>Đất trồng cần có hệ thống tưới tiêu tốt, không để mưa làm ngập úng. Đất trồng phải khô thoáng, tránh đọng nước.</li>" +
+          "<li>Khi thu hoạch để giống cần chọn những ngô ở cây không bị bệnh.</li>" +
+          "<li>Khi bệnh xuất hiện có thể phun thuốc: Carbendazim (Vicarben 50WP), Mancozeb (Dizeb - M45 80WP, Tungmanzeb 800WP), Propineb (Antracol 70WP), Cytokinin (Geno 2005 2SL).</li>" +
+          "</ul>";
+  public static final String dom_la_xam = "<p><b>1.1. Triệu chứng</b></p>" +
+          "<ul>" +
+          "<li>Bệnh phổ biến ở khắp các vùng trồng ngô và trên tất cả các giống ngô địa phương, ngô lai. Bệnh gây hại từ khi cây có 2 – 3 lá cho đến hết thời kỳ sinh trưởng của cây. Vết bệnh lúc đầu là những chấm nhỏ, sau có dạng hình thoi. Xung quanh vết bệnh có thể có những đường viền dạng ngậm nước, sau chuyển thành màu vàng. Giữa vết bệnh có màu trắng xám. Kích thước của vết bệnh thay đổi theo giống, có thể từ 2 – 6 x  3 -22 mm. Nhiều vết bệnh liên kết với nhau thành đám lớn làm tổn thương lá và giảm quang hợp ảnh hưởng đến năng suất ngô.</li>" +
+          "</ul>" +
+          "<p><b>1.2. Nguyên nhân, điều kiện phát sinh, phát triển của bệnh</b></p>" +
+          "<ul>" +
+          "<li>Bệnh đốm lá nhỏ do nấm Helminthosporium maydis Nisikado gây ra. Bệnh thường gây hại nhiều ở những ruộng ngô xấu tức là  những ruộng không có sự đầu tư thâm canh làm cho cây còi cọc, xấu sinh trưởng kém, còi cọc, không phát triển được. Tàn dư cây bệnh trên đồng ruộng là nguồn lây nhiễm cho vụ sau.</li>" +
+          "</ul>" +
+          "<p><b>1.3. Biện pháp phòng trừ</b></p>" +
+          "<ul>" +
+          "<li>Sử dụng giống ngô có khả năng chống chịu bệnh, dùng hạt giống sạch bệnh. Xử lý hạt giống bằng Rovrral (2g/ 10kg hạt). Những vùng thường bị bệnh nặng nên luân canh với các cây không phải là ký chủ của bệnh. Chăm sóc tốt làm cho cây khỏe tăng cường khả năng chống bệnh. Vệ sinh đồng ruộng, thu dọn sạch tàn dư cây bệnhđem tiêu hủy và tạo độ thông thoáng cho ruộng ngô. Phun các loại thuốc Tilt 250ND và Anvil 5SC nồng độ 0,1% để phòng trừ bệnh trên đồng ruộng.</li>" +
+          "</ul>";
   public static String[] IMAGENET_CLASSES = new String[]{
           "tench, Tinca tinca",
           "goldfish, Carassius auratus",
