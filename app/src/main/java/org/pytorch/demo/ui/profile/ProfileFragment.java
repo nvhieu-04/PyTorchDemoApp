@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,31 @@ public class ProfileFragment extends Fragment {
                         Dialog dialog = new Dialog(getActivity());
                         dialog.setContentView(R.layout.dialog_about_us);
                         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.background_light);
+                        TextView textView = dialog.findViewById(R.id.textView22);
+                        String htmlText = "<h1>Ứng dụng Nhận diện Bệnh trên Cây</h1>" +
+                                "<p>\"Ứng dụng Nhận diện Bệnh trên Cây\" là một ứng dụng di động trên nền tảng Android, cho phép người dùng nhận diện và xác định bệnh trên cây thông qua hình ảnh chụp từ camera điện thoại. Dự án sử dụng Java cho phần giao diện của ứng dụng và JavaScript cho phần máy chủ, sử dụng NodeJS và ExpressJS để xây dựng API, MongoDB để lưu trữ dữ liệu và sử dụng các mô hình học sâu tiên tiến nhất để nhận dạng bệnh.</p>" +
+                                "<h2>Tính năng</h2>" +
+                                "<ul>" +
+                                "<li> Cho phép người dùng chụp hình cây để phát hiện và xác định bệnh trên chúng</li>" +
+                                "<li> Hiển thị kết quả của việc phát hiện bệnh trên ảnh, bao gồm tên bệnh và cách xử lý</li>" +
+                                "<li> Cho phép người dùng xem lịch sử các bức ảnh đã chụp và kết quả phát hiện</li>" +
+                                "</ul>" +
+                                "<h2>Công nghệ sử dụng</h2>" +
+                                "<ul>" +
+                                "<li> Phía giao diện: Java trên Android</li>" +
+                                "<li> Phía máy chủ: JavaScript sử dụng NodeJS và ExpressJS</li>" +
+                                "<li> Hệ thống lưu trữ: MongoDB</li>" +
+                                "<li> Sử dụng PyTorch và các mô hình học máy để phát hiện và xác định bệnh trên cây</li>" +
+                                "</ul>" +
+                                "<h2>Cấu trúc dự án</h2>" +
+                                "<ul>" +
+                                "<li> android: mã nguồn cho phần giao diện của ứng dụng, viết bằng Java và phát triển bằng Android Studio</li>" +
+                                "<li> backend: mã nguồn cho phần máy chủ của ứng dụng, viết bằng JavaScript và sử dụng NodeJS và ExpressJS để xây dựng API và kết nối đến MongoDB</li>" +
+                                "<li> models: chứa các mô hình học máy được sử dụng để phát hiện và xác định bệnh trên cây</li>" +
+                                "<li> docs: chứa tài liệu hướng dẫn sử dụng ứng dụng và các bước cài đặt và chạy dự án.</li>" +
+                                "</ul>";
+                        textView.setText(Html.fromHtml(htmlText));
                         dialog.show();
                     }
                 }

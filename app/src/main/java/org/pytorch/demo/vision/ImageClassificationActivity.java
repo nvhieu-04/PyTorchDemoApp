@@ -1,6 +1,7 @@
 package org.pytorch.demo.vision;
 
 import android.app.ActivityManager;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
 import android.os.SystemClock;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.TextureView;
@@ -136,6 +138,36 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
         intent1.putExtra("nameRoom", nameRoom);
         intent1.putExtra("image", fname);
         startActivity(intent1);
+    });
+    mResultRowViews[0].setOnClickListener(v -> {
+      Dialog dialog = new Dialog(this);
+      dialog.setContentView(R.layout.dialog_custom_detail_disease);
+      TextView nameDisease = dialog.findViewById(R.id.textView7);
+      TextView description = dialog.findViewById(R.id.textView13);
+      TextView copyRight = dialog.findViewById(R.id.textView18);
+      ImageView imageDisease = dialog.findViewById(R.id.imageView11);
+      copyRight.setText("Nguồn: \"Một số sâu bệnh hại trên cây ngô và biện pháp phòng trừ,\" HPSTIC, 2019. [Online]. Available: http://hpstic.vn:96/tin-chi-tiet/Mot-so-sau-benh-hai-tren-cay-ngo-va-bien-phap-phong-tru-1387.html. [Accessed: Jun. 22, 2023].");
+      nameDisease.setText(mResultRowViews[0].toString());
+      if(Objects.equals(mResultRowViews[0].toString(), "Bệnh đốm lá xám"))
+      {
+        description.setText(Html.fromHtml(Constants.dom_la_xam));
+        imageDisease.setImageResource(R.drawable.benhdomlanho);
+      }
+      else if (Objects.equals(mResultRowViews[0].toString(), "Bệnh gỉ sắt"))
+      {
+        description.setText(Html.fromHtml(Constants.common_rust));
+        imageDisease.setImageResource(R.drawable.gisat);
+      }
+      else if (Objects.equals(mResultRowViews[0].toString(), "Bệnh cháy lá"))
+      {
+        description.setText(Html.fromHtml(Constants.chay_la));
+        imageDisease.setImageResource(R.drawable.chayla);
+      }
+      else {
+        Toast.makeText(getApplicationContext(), "Không có thông tin về bệnh này", Toast.LENGTH_SHORT).show();
+        return;
+      }
+      dialog.show();
     });
   }
 

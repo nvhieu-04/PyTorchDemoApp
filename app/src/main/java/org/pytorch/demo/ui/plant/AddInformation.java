@@ -84,11 +84,6 @@ public class AddInformation extends AppCompatActivity {
         boolean isUpdate = intent.getBooleanExtra("edit", false);
         if(imagePlant1 != null)
         {
-            if(nameRoom == null || nameDisease == null || namePlant1 == null || idPlant == null)
-            {
-                Toast.makeText(this, "Vui lòng điền thông tin", Toast.LENGTH_SHORT).show();
-                return;
-            }
             Toast.makeText(this, imagePlant1, Toast.LENGTH_SHORT).show();
             String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
             File myDir = new File(root + "/Image_Disease");
