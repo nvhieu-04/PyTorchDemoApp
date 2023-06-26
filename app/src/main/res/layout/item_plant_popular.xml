@@ -16,10 +16,9 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:layout_weight="1"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="ListView Item"
         android:textSize="20sp" />

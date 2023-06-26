@@ -32,10 +32,12 @@ import com.bumptech.glide.Glide;
 import org.pytorch.demo.MainActivity;
 import org.pytorch.demo.models.ImageDeleteRequest;
 import org.pytorch.demo.models.RoomResponse;
+import org.pytorch.demo.ui.history.HistoryFragment;
 import org.pytorch.demo.ui.login.ApiClient;
 import org.pytorch.demo.ui.login.Login;
 import org.pytorch.demo.R;
 import org.pytorch.demo.ui.register.Register;
+import org.pytorch.demo.ui.saved.Saved;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
@@ -57,7 +59,7 @@ public class ProfileFragment extends Fragment {
     }
     Button btn_Login, btn_Register;
     TextView txtName;
-    ConstraintLayout logout, pytorch, about;
+    ConstraintLayout logout, pytorch, about, saved, history, updateprofile;
     CircleImageView imgAvatar;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle  savedInstanceState){
@@ -69,7 +71,28 @@ public class ProfileFragment extends Fragment {
         imgAvatar = view.findViewById(R.id.imageAvatar);
         pytorch = view.findViewById(R.id.py_torch);
         about = view.findViewById(R.id.about_us);
-
+        saved = view.findViewById(R.id.saved);
+        history = view.findViewById(R.id.history);
+        updateprofile = view.findViewById(R.id.update_profile);
+        saved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Saved.class);
+                startActivity(intent);
+            }
+        });
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Đang phát triển", Toast.LENGTH_SHORT).show();
+            }
+        });
+        updateprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Đang phát triển", Toast.LENGTH_SHORT).show();
+            }
+        });
         about.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

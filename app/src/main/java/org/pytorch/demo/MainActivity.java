@@ -1,5 +1,6 @@
 package org.pytorch.demo;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -40,6 +41,21 @@ public class MainActivity extends AppCompatActivity {
     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
     window.setStatusBarColor(Color.parseColor("#DDFFBB"));
+//    Get all permision for app like camera, storage, location
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+    }
+//    Check permision for app if user deny
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != 0) {
+      Toast.makeText(this, "Vui lòng mở quyền truy cập Camera", Toast.LENGTH_SHORT).show();
+    }
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != 0) {
+      Toast.makeText(this, "Bị từ chối quyền truy cập, vui lòng thử lại", Toast.LENGTH_SHORT).show();
+    }
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != 0) {
+      Toast.makeText(this, "Bị từ chối quyền truy cập, vui lòng thử lại", Toast.LENGTH_SHORT).show();
+    }
+
     //get API store data user information in shared preferences
     SharedPreferences prefs = getSharedPreferences("myKey", Context.MODE_PRIVATE);
     String token = prefs.getString("TOKEN", null);
@@ -67,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
   {
     SharedPreferences prefs = getSharedPreferences("myKey", Context.MODE_PRIVATE);
     String token = prefs.getString("TOKEN", null);
-    Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
+//    Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
     Call<UserInfo> call = ApiClient.getUserService().me(token);
     call.enqueue(new retrofit2.Callback<UserInfo>() {
       @Override

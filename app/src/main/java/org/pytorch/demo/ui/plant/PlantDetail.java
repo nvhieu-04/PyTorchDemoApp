@@ -145,26 +145,30 @@ public class PlantDetail extends AppCompatActivity {
                 ImageView imageDisease = dialog.findViewById(R.id.imageView11);
                 copyRight.setText("Nguồn: \"Một số sâu bệnh hại trên cây ngô và biện pháp phòng trừ,\" HPSTIC, 2019. [Online]. Available: http://hpstic.vn:96/tin-chi-tiet/Mot-so-sau-benh-hai-tren-cay-ngo-va-bien-phap-phong-tru-1387.html. [Accessed: Jun. 22, 2023].");
                 nameDisease.setText(status);
+                dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.background_light);
                 if(Objects.equals(status, "Bệnh đốm lá xám"))
                 {
                     description.setText(Html.fromHtml(Constants.dom_la_xam));
                     imageDisease.setImageResource(R.drawable.benhdomlanho);
+                    dialog.show();
                 }
                 else if (Objects.equals(status, "Bệnh gỉ sắt"))
                 {
                     description.setText(Html.fromHtml(Constants.common_rust));
                     imageDisease.setImageResource(R.drawable.gisat);
+                    dialog.show();
                 }
                 else if (Objects.equals(status, "Bệnh cháy lá"))
                 {
                     description.setText(Html.fromHtml(Constants.chay_la));
                     imageDisease.setImageResource(R.drawable.chayla);
+                    dialog.show();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Không có thông tin về bệnh này", Toast.LENGTH_SHORT).show();
-                    return;
+                    dialog.dismiss();
                 }
-                dialog.show();
             }
         );
 

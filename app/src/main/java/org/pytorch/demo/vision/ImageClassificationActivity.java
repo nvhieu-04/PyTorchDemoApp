@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewStub;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -147,27 +148,34 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
       TextView copyRight = dialog.findViewById(R.id.textView18);
       ImageView imageDisease = dialog.findViewById(R.id.imageView11);
       copyRight.setText("Nguồn: \"Một số sâu bệnh hại trên cây ngô và biện pháp phòng trừ,\" HPSTIC, 2019. [Online]. Available: http://hpstic.vn:96/tin-chi-tiet/Mot-so-sau-benh-hai-tren-cay-ngo-va-bien-phap-phong-tru-1387.html. [Accessed: Jun. 22, 2023].");
-      nameDisease.setText(mResultRowViews[0].toString());
-      if(Objects.equals(mResultRowViews[0].toString(), "Bệnh đốm lá xám"))
+      nameDisease.setText(mDiseaseName);
+      dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+      dialog.getWindow().setBackgroundDrawableResource(android.R.color.background_light);
+      if(Objects.equals(mDiseaseName, "Bệnh đốm lá xám"))
       {
+        Toast.makeText(getApplicationContext(), mDiseaseName, Toast.LENGTH_SHORT).show();
         description.setText(Html.fromHtml(Constants.dom_la_xam));
         imageDisease.setImageResource(R.drawable.benhdomlanho);
+        dialog.show();
       }
-      else if (Objects.equals(mResultRowViews[0].toString(), "Bệnh gỉ sắt"))
+      else if (Objects.equals(mDiseaseName, "Bệnh gỉ sắt"))
       {
+        Toast.makeText(getApplicationContext(), mDiseaseName, Toast.LENGTH_SHORT).show();
         description.setText(Html.fromHtml(Constants.common_rust));
         imageDisease.setImageResource(R.drawable.gisat);
+        dialog.show();
       }
-      else if (Objects.equals(mResultRowViews[0].toString(), "Bệnh cháy lá"))
+      else if (Objects.equals(mDiseaseName, "Bệnh cháy lá"))
       {
+        Toast.makeText(getApplicationContext(), mDiseaseName, Toast.LENGTH_SHORT).show();
         description.setText(Html.fromHtml(Constants.chay_la));
         imageDisease.setImageResource(R.drawable.chayla);
+        dialog.show();
       }
       else {
         Toast.makeText(getApplicationContext(), "Không có thông tin về bệnh này", Toast.LENGTH_SHORT).show();
-        return;
+        dialog.dismiss();
       }
-      dialog.show();
     });
   }
 
@@ -182,6 +190,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     for (int i = 0; i < TOP_K; i++) {
       final ResultRowView rowView = mResultRowViews[i];
       rowView.nameTextView.setText(result.topNClassNames[i]);
+
       if (result.topNScores[i] * 75 >= 100)
       {
         rowView.scoreTextView.setText("100%");
@@ -199,12 +208,8 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
       long totalMemoryDevice = memoryInfo.totalMem;
       Runtime runtime = Runtime.getRuntime();
       long totalMemory = runtime.totalMemory();
-      long cpuTime = Debug.threadCpuTimeNanos();
-      long elapsedTime = SystemClock.elapsedRealtimeNanos();
-      float cpuUsagePercentage = (float) cpuTime / (elapsedTime * Runtime.getRuntime().availableProcessors()) * 100000000f;
       DecimalFormat df = new DecimalFormat("#.##");
       ram.setText("Ram Usage: " + totalMemory/1024/100 + "MB" + " / " + totalMemoryDevice/1024/100 + "MB");
-      cpu.setText("CPU Usage: " + df.format(cpuUsagePercentage) + "%");
     }
 
     mMsText.setText(String.format(Locale.US, FORMAT_MS, result.moduleForwardDuration));
@@ -248,13 +253,11 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
     return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
   }
   protected void saveImage(Bitmap finalBitmap) {
-    String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
-    File myDir = new File(root + "/Image_Disease");
+    File myDir = new File( Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "/Image_Disease");
     myDir.mkdirs();
     fname = "Image-" + mDiseaseName + ".jpg";
     File file = new File(myDir, fname);
     if (file.exists()) file.delete();
-    Log.i("LOAD", root + fname);
     try {
       FileOutputStream out = new FileOutputStream(file);
       finalBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
@@ -303,7 +306,6 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
           TensorImageUtils.TORCHVISION_NORM_MEAN_RGB,
           TensorImageUtils.TORCHVISION_NORM_STD_RGB,
           mInputTensorBuffer, 0);
-      //Toast.makeText(this, image.getImage()+"result", Toast.LENGTH_SHORT).show();
       final long moduleForwardStartTime = SystemClock.elapsedRealtime();
       final Tensor outputTensor = mModule.forward(IValue.from(mInputTensor)).toTensor();
       final long moduleForwardDuration = SystemClock.elapsedRealtime() - moduleForwardStartTime;

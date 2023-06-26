@@ -137,6 +137,7 @@
                     android:orientation="vertical">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/saved"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -181,6 +182,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/history"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -233,6 +235,7 @@
                         android:background="#D1d1d1" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/update_profile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
