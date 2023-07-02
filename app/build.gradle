@@ -67,4 +67,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
     implementation 'io.github.krupen:fabulousfilter:0.0.6'
+    implementation 'com.github.pedromassango:doubleClick:3.0'
+
 }

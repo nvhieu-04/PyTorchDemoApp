@@ -247,20 +247,20 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
 
     YuvImage yuvImage = new YuvImage(nv21, ImageFormat.NV21, image.getWidth(), image.getHeight(), null);
     ByteArrayOutputStream out = new ByteArrayOutputStream();
-    yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), 75, out);
+    yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), 90, out);
 
     byte[] imageBytes = out.toByteArray();
     return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
   }
   protected void saveImage(Bitmap finalBitmap) {
-    File myDir = new File( Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "/Image_Disease");
-    myDir.mkdirs();
-    fname = "Image-" + mDiseaseName + ".jpg";
-    File file = new File(myDir, fname);
+//    File myDir = new File( Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),);
+//    myDir.mkdirs();
+    fname = "Image-Result" + ".jpg";
+    File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fname);
     if (file.exists()) file.delete();
     try {
       FileOutputStream out = new FileOutputStream(file);
-      finalBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
+      finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
       out.flush();
       out.close();
     } catch (Exception e) {
@@ -306,14 +306,15 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
           TensorImageUtils.TORCHVISION_NORM_MEAN_RGB,
           TensorImageUtils.TORCHVISION_NORM_STD_RGB,
           mInputTensorBuffer, 0);
+      imageCapture = image.getImage();
+      Bitmap bitmap = toBitmap(imageCapture);
+      saveImage(bitmap);
       final long moduleForwardStartTime = SystemClock.elapsedRealtime();
       final Tensor outputTensor = mModule.forward(IValue.from(mInputTensor)).toTensor();
       final long moduleForwardDuration = SystemClock.elapsedRealtime() - moduleForwardStartTime;
 
       final float[] scores = outputTensor.getDataAsFloatArray();
       final int[] ixs = Utils.topK(scores, TOP_K);
-      imageCapture = image.getImage();
-      Bitmap bitmap = toBitmap(imageCapture);
       final String[] topKClassNames = new String[TOP_K];
       final float[] topKScores = new float[TOP_K];
       for (int i = 0; i < TOP_K; i++) {
@@ -322,7 +323,6 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
         mDiseaseName = Constants.IMAGENET_CLASSES[ix];
         topKScores[i] = scores[ix];
       }
-      saveImage(bitmap);
       final long analysisDuration = SystemClock.elapsedRealtime() - startTime;
       return new AnalysisResult(topKClassNames, topKScores, moduleForwardDuration, analysisDuration);
     } catch (Exception e) {

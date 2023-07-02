@@ -282,7 +282,7 @@ public class CameraFragment extends Fragment {
                             "Bệnh cháy lá",
                             "Cây khỏe mạnh",
                     };
-                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "levit_256.pt");
+                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "mobilevit_xs.pt");
                     intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
                             InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
                     startActivity(intent);

@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment {
                     for (Plant plant : plantList) {
                         if(plant.getUserID().equals(id))
                         {
-                            if (!plant.getHealthStatus().equals("Healthy"))
+                            if (!plant.getHealthStatus().equals("Cây khỏe mạnh"))
                             {
                                 plants.add(plant);
                             }
