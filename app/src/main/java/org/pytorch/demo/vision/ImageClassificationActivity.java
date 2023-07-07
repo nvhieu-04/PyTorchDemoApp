@@ -96,7 +96,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
   protected String mDiseaseName;
   protected Image imageCapture;
   protected String fname;
-  protected TextView ram,cpu, gpu;
+  protected TextView ram,cpu,gpu;
 
   protected float resultTopK;
   @Override

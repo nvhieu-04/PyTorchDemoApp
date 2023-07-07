@@ -37,6 +37,7 @@ import java.sql.Time;
 import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -83,7 +84,7 @@ public class AddNewRoom extends AppCompatActivity {
                     return;
                 }
                 File file = new File(uri.getPath());
-                String nameFile = name + floor + id + ".jpg";
+                String nameFile = UUID.randomUUID().toString() + id + ".jpg";
                 // create RequestBody instance from file
                 RequestBody requestFile =
                         RequestBody.create(MediaType.parse("multipart/form-data"), file);

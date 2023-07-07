@@ -72,5 +72,7 @@
     <string name="MyRoom">VƯỜN CỦA TÔI</string>
     <string name="CrossViT_title">Image Classification \CrossViT</string>
     <string name="MobileViT_title">Image Classification \MobileViT</string>
+    <string name="Test_title">Image Classification \Test</string>
+
 
 </resources>

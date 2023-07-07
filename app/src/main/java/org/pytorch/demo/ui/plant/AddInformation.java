@@ -50,6 +50,7 @@ import org.pytorch.demo.vision.ImageClassificationActivity;
 import java.io.Console;
 import java.io.File;
 import java.util.Objects;
+import java.util.UUID;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -474,8 +475,8 @@ public class AddInformation extends AppCompatActivity {
                 return;
             }
             File file = new File(uri.getPath());
-            Log.d("file:", file.getPath());
-            String nameFile = name + nameofRoom + id + ".jpg";
+
+            String nameFile = UUID.randomUUID().toString() + id + ".jpg";
             RequestBody requestFile =
                     RequestBody.create(MediaType.parse("multipart/form-data"), file);
             // MultipartBody.Part is used to send also the actual file name
