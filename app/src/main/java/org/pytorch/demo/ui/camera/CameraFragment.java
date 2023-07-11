@@ -276,17 +276,54 @@ public class CameraFragment extends Fragment {
         );
         crossvit.setOnClickListener(
                 view14 -> {
-                    final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
-                    Constants.IMAGENET_CLASSES = new String[]{
-                            "Bệnh đốm lá xám",
-                            "Bệnh gỉ sắt",
-                            "Bệnh cháy lá",
-                            "Cây khỏe mạnh",
-                    };
-                    intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, "crossvit.pt");
-                    intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
-                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
-                    startActivity(intent);
+                    if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                        ProgressDialog pd = new ProgressDialog(getActivity());
+                        pd.setTitle("Đang tải model");
+                        pd.setMessage("Vui lòng chờ....");
+                        pd.setCancelable(false);
+                        pd.setIndeterminate(true);
+                        pd.show();
+                        String fileName = "crossvit.pt";
+                        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+                        Toast.makeText(getActivity(),"Name file: " + file, Toast.LENGTH_SHORT).show();
+                        Constants.IMAGENET_CLASSES = new String[]{
+                                "Bệnh đốm lá xám",
+                                "Bệnh gỉ sắt",
+                                "Bệnh cháy lá",
+                                "Cây khỏe mạnh",
+                        };
+                        if (file.exists()) {
+                            final Intent intent = new Intent(getActivity(), ImageClassificationActivity.class);
+                            intent.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, fileName);
+                            intent.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                                    InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                            pd.dismiss();
+                            startActivity(intent);
+                        } else {
+                            DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(API_URL + "crossvit.pt"));
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                            request.setTitle(fileName);
+                            request.setDescription("Downloading File");
+                            request.allowScanningByMediaScanner();
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                            request.setDestinationInExternalPublicDir(DIRECTORY_DOWNLOADS, "crossvit.pt");
+                            downloadManager.enqueue(request);
+                            BroadcastReceiver onComplete = new BroadcastReceiver() {
+                                public void onReceive(Context ctxt, Intent intent) {
+                                    final Intent intent1 = new Intent(getActivity(), ImageClassificationActivity.class);
+                                    intent1.putExtra(ImageClassificationActivity.INTENT_MODULE_ASSET_NAME, fileName);
+                                    intent1.putExtra(ImageClassificationActivity.INTENT_INFO_VIEW_TYPE,
+                                            InfoViewFactory.INFO_VIEW_TYPE_IMAGE_CLASSIFICATION_QMOBILENET);
+                                    pd.dismiss();
+                                    startActivity(intent1);
+                                }
+                            };
+                            getActivity().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+                        }
+                    }
                 }
         );
 

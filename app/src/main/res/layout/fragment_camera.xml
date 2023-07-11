@@ -40,6 +40,28 @@
             </org.pytorch.demo.ListCardView>
 
             <org.pytorch.demo.ListCardView
+                android:id="@+id/vision_card_MobileViT_click_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:elevation="1dp"
+                app:descriptionRes="@string/vision_card_qmobilenet_description"
+                app:imageRes="@drawable/ic_image_classification_s"
+                app:titleRes="@string/MobileViT_title">
+
+            </org.pytorch.demo.ListCardView>
+
+            <org.pytorch.demo.ListCardView
+                android:id="@+id/vision_card_Test_click_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:elevation="1dp"
+                app:descriptionRes="@string/vision_card_qmobilenet_description"
+                app:imageRes="@drawable/ic_image_classification_s"
+                app:titleRes="@string/Test_title" />
+
+            <org.pytorch.demo.ListCardView
 
                 android:id="@+id/vision_card_SimpleViT_click_area"
                 android:layout_width="match_parent"
@@ -64,16 +86,6 @@
                 app:titleRes="@string/DeepViT_title" />
 
             <org.pytorch.demo.ListCardView
-                android:id="@+id/vision_card_MobileViT_click_area"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:elevation="1dp"
-                app:descriptionRes="@string/vision_card_qmobilenet_description"
-                app:imageRes="@drawable/ic_image_classification_s"
-                app:titleRes="@string/MobileViT_title" />
-
-            <org.pytorch.demo.ListCardView
                 android:id="@+id/vision_card_CrossViT_click_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -82,16 +94,6 @@
                 app:descriptionRes="@string/vision_card_qmobilenet_description"
                 app:imageRes="@drawable/ic_image_classification_s"
                 app:titleRes="@string/CrossViT_title" />
-
-            <org.pytorch.demo.ListCardView
-                android:id="@+id/vision_card_Test_click_area"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:elevation="1dp"
-                app:descriptionRes="@string/vision_card_qmobilenet_description"
-                app:imageRes="@drawable/ic_image_classification_s"
-                app:titleRes="@string/Test_title" />
 
         </LinearLayout>
     </ScrollView>

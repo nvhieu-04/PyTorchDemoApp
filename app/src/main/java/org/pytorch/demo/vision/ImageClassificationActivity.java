@@ -1,5 +1,7 @@
 package org.pytorch.demo.vision;
 
+import static org.pytorch.demo.Constants.TAG;
+
 import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.Context;
@@ -181,6 +183,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
 
   @Override
   protected void applyToUiAnalyzeImageResult(AnalysisResult result) {
+    Log.d(TAG, "applyToUiAnalyzeImageResult: " + result);
     mMovingAvgSum += result.moduleForwardDuration;
     mMovingAvgQueue.add(result.moduleForwardDuration);
     if (mMovingAvgQueue.size() > MOVING_AVG_PERIOD) {
@@ -326,7 +329,7 @@ public class ImageClassificationActivity extends AbstractCameraXActivity<ImageCl
       final long analysisDuration = SystemClock.elapsedRealtime() - startTime;
       return new AnalysisResult(topKClassNames, topKScores, moduleForwardDuration, analysisDuration);
     } catch (Exception e) {
-      Log.e(Constants.TAG, "Error during image analysis", e);
+      Log.e(TAG, "Error during image analysis", e);
       mAnalyzeImageErrorState = true;
       runOnUiThread(() -> {
         if (!isFinishing()) {
